@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 data/
 stitch_exports/
+rag_careerfit_engine.egg-info/
