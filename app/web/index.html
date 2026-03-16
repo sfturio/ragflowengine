@@ -4,161 +4,272 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CareerFit RAG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui"],
+              display: ["Manrope", "Inter", "ui-sans-serif", "system-ui"],
+            },
+            colors: {
+              brand: {
+                700: "#00346f",
+                600: "#004a99",
+              },
+            },
+          },
+        },
+      };
+    </script>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
-  <body>
-    <header class="topbar">
-      <div class="brand-wrap">
-        <div class="brand-badge">CF</div>
-        <div class="brand-text">
-          <strong class="brand">CareerFit RAG</strong>
-          <small>Analise de aderencia para vagas tech</small>
+  <body class="bg-[#f8f9ff] text-slate-900 font-sans">
+    <header class="sticky top-0 z-30 border-b border-slate-200/80 backdrop-blur-md bg-white/70">
+      <div class="mx-auto w-full max-w-6xl px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div
+            class="h-10 w-10 rounded-xl bg-gradient-to-br from-[#00346f] to-[#004a99] text-white grid place-items-center font-display font-extrabold"
+          >
+            CF
+          </div>
+          <div>
+            <p class="font-display font-bold text-[#00346f] leading-none">CareerFit</p>
+            <p class="text-xs text-slate-500">AI Recruitment Intelligence</p>
+          </div>
         </div>
+        <button id="refresh-history-btn" class="px-4 h-10 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 transition">
+          History
+        </button>
       </div>
-      <button id="refresh-history-btn" class="btn btn-ghost">Atualizar historico</button>
     </header>
 
-    <main class="page">
-      <section class="hero">
-        <div class="hero-content">
-          <p class="eyebrow">Career Intelligence</p>
-          <h1>Descubra sua aderencia real a qualquer vaga em segundos.</h1>
-          <p class="hero-subtitle">
-            Envie seu curriculo, cole a vaga e receba um plano claro do que melhorar.
-          </p>
+    <main class="mx-auto w-full max-w-6xl px-4 py-6 md:py-8">
+      <section class="mb-6 rounded-2xl border border-blue-100 bg-white p-4 md:p-5 shadow-sm">
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <span class="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-[11px] uppercase tracking-[0.12em] font-bold text-[#00346f]">
+            Inteligencia Artificial
+          </span>
+          <span class="text-xs text-slate-500">Fluxo guiado em 4 etapas</span>
         </div>
-        <div class="steps-card">
-          <p class="steps-caption">Fluxo guiado em 4 etapas</p>
-          <div class="stepper" aria-label="Progresso da analise">
-            <div class="stepper-step is-current" data-step="1">
-              <span class="stepper-dot">1</span>
-              <small>Curriculo</small>
-            </div>
-            <div class="stepper-step" data-step="2">
-              <span class="stepper-dot">2</span>
-              <small>Vaga</small>
-            </div>
-            <div class="stepper-step" data-step="3">
-              <span class="stepper-dot">3</span>
-              <small>Analise</small>
-            </div>
-            <div class="stepper-step" data-step="4">
-              <span class="stepper-dot">4</span>
-              <small>Acao</small>
-            </div>
+
+        <div class="relative grid grid-cols-2 md:grid-cols-4 gap-3" id="step-indicator" aria-label="Progresso">
+          <div class="absolute left-[12.5%] right-[12.5%] top-5 h-[2px] bg-slate-200 hidden md:block"></div>
+          <div id="step-progress-fill" class="absolute left-[12.5%] top-5 h-[2px] bg-[#00346f] hidden md:block transition-all duration-300" style="width: 0%"></div>
+
+          <div data-step-node="1" class="step-node is-current">
+            <span class="step-dot">1</span>
+            <small>Curriculo</small>
+          </div>
+          <div data-step-node="2" class="step-node is-upcoming">
+            <span class="step-dot">2</span>
+            <small>Vaga</small>
+          </div>
+          <div data-step-node="3" class="step-node is-upcoming">
+            <span class="step-dot">3</span>
+            <small>Analise</small>
+          </div>
+          <div data-step-node="4" class="step-node is-upcoming">
+            <span class="step-dot">4</span>
+            <small>Acao</small>
           </div>
         </div>
       </section>
 
-      <section class="layout">
-        <section class="action-card">
-          <div class="section-header">
-            <h2>Passo 1 - Enviar curriculo</h2>
-            <p class="muted">Use PDF ou texto bruto para iniciar a analise.</p>
-          </div>
+      <p id="status-text" class="mb-4 text-sm text-slate-600"></p>
 
-          <div class="upload-area" id="resume-dropzone">
-            <input id="resume-pdf" class="file-input" type="file" accept=".pdf" />
-            <label for="resume-pdf" class="upload-inner">
-              <span class="upload-icon" aria-hidden="true">^</span>
-              <strong>Clique ou arraste seu PDF aqui</strong>
-              <small>ou cole o texto abaixo</small>
-              <em id="resume-file-name">Nenhum arquivo selecionado</em>
+      <section id="screen-upload" class="screen active">
+        <div class="rounded-2xl border border-blue-100 bg-white p-5 md:p-8 shadow-sm">
+          <p class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">Etapa 1 de 4</p>
+          <h1 class="font-display text-3xl md:text-5xl font-extrabold leading-tight mt-3 text-[#00346f] max-w-3xl">
+            Descubra sua aderencia real a qualquer vaga em segundos.
+          </h1>
+          <p class="mt-3 text-slate-600 max-w-2xl">
+            Envie seu curriculo, deixe a IA cruzar semantica com os requisitos da vaga e receba um direcionamento pratico.
+          </p>
+
+          <div id="resume-dropzone" class="mt-7 rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50/40 p-6 text-center transition">
+            <input id="resume-pdf" class="sr-only" type="file" accept=".pdf" />
+            <label for="resume-pdf" class="cursor-pointer block">
+              <span class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-[#00346f] to-[#004a99] text-white text-lg font-bold">^</span>
+              <p class="font-semibold text-slate-800">Clique ou arraste seu PDF aqui</p>
+              <p class="mt-1 text-sm text-slate-500">Arquivos enviados com privacidade.</p>
+              <p id="resume-file-name" class="mt-2 text-xs font-medium text-slate-500">Nenhum arquivo selecionado</p>
             </label>
           </div>
 
-          <div class="form-grid">
+          <div class="my-6 flex items-center gap-3 text-slate-400">
+            <div class="h-px flex-1 bg-slate-200"></div>
+            <span class="text-xs font-semibold tracking-wide">OU</span>
+            <div class="h-px flex-1 bg-slate-200"></div>
+          </div>
+
+          <label for="resume-text" class="block text-sm font-semibold text-slate-700 mb-2">Cole o texto do curriculo</label>
+          <textarea id="resume-text" rows="8" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none ring-0 focus:border-blue-300" placeholder="Cole aqui seu curriculo se preferir nao enviar PDF"></textarea>
+
+          <div class="mt-5 flex flex-wrap gap-3">
+            <button id="continue-step2-btn" class="h-12 px-6 rounded-xl text-white font-semibold bg-gradient-to-br from-[#00346f] to-[#004a99] shadow-sm hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Continuar para Passo 2
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+          <article class="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
+            <h3 class="font-display font-bold text-[#00346f]">Privacidade garantida</h3>
+            <p class="mt-1 text-sm text-slate-600">Processamento seguro, sem exposicao publica do seu curriculo.</p>
+          </article>
+          <article class="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
+            <h3 class="font-display font-bold text-[#00346f]">Analise rapida</h3>
+            <p class="mt-1 text-sm text-slate-600">Resultados gerados em segundos com foco no que importa para a vaga.</p>
+          </article>
+          <article class="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
+            <h3 class="font-display font-bold text-[#00346f]">Matching preciso</h3>
+            <p class="mt-1 text-sm text-slate-600">Compara competencias com criterios reais e entrega plano acionavel.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="screen-target" class="screen">
+        <div class="rounded-2xl border border-blue-100 bg-white p-5 md:p-8 shadow-sm">
+          <p class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">Etapa 2 de 4</p>
+          <h2 class="font-display text-3xl md:text-4xl font-extrabold mt-3 text-[#00346f]">Defina seu alvo</h2>
+          <p class="mt-2 text-slate-600">Informe o cargo e cole a descricao da vaga para iniciar o cruzamento inteligente.</p>
+
+          <div class="mt-6 grid gap-4">
             <div>
-              <label for="target-role">Cargo alvo</label>
-              <input id="target-role" type="text" placeholder="Ex: Backend Developer .NET" />
+              <label for="target-role" class="block text-sm font-semibold text-slate-700 mb-2">Cargo alvo</label>
+              <input id="target-role" type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 h-12 text-sm outline-none focus:border-blue-300" placeholder="Ex: Backend Developer .NET" />
+            </div>
+            <div>
+              <label for="job-description" class="block text-sm font-semibold text-slate-700 mb-2">Descricao da vaga</label>
+              <textarea id="job-description" rows="10" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-300" placeholder="Cole requisitos, atribuicoes e diferenciais da vaga"></textarea>
             </div>
           </div>
 
-          <div class="flow-block">
-            <label for="resume-text">Texto do curriculo (opcional)</label>
-            <textarea
-              id="resume-text"
-              rows="7"
-              placeholder="Cole aqui o texto do curriculo caso nao use PDF"
-            ></textarea>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button id="back-step1-btn" class="h-12 px-5 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold hover:bg-slate-50 transition">Voltar</button>
+            <button id="analyze-btn" class="h-12 px-7 rounded-xl text-white font-semibold bg-gradient-to-br from-[#00346f] to-[#004a99] shadow-sm hover:opacity-95 transition">
+              Gerar analise agora
+            </button>
           </div>
-
-          <div class="flow-block">
-            <label for="job-description">Passo 2 - Descricao da vaga</label>
-            <textarea
-              id="job-description"
-              rows="9"
-              placeholder="Cole requisitos, responsabilidades e diferenciais da vaga"
-            ></textarea>
-          </div>
-
-          <div class="actions">
-            <button id="analyze-btn" class="btn btn-primary">Analisar vaga</button>
-            <span id="status-text" class="muted"></span>
-          </div>
-        </section>
-
-        <aside class="history-panel">
-          <div class="section-header">
-            <h2>Analises recentes</h2>
-            <p class="muted">Acesse resultados anteriores com um clique.</p>
-          </div>
-          <div id="history-list" class="history-list"></div>
-        </aside>
+        </div>
       </section>
 
-      <section id="results-panel" class="results-panel hidden">
-        <div class="results-hero-card">
-          <p>Match Score</p>
-          <strong id="metric-match">0%</strong>
-          <small>Visao geral de aderencia para a vaga analisada</small>
+      <section id="screen-loading" class="screen">
+        <div class="rounded-2xl border border-blue-100 bg-white p-6 md:p-10 shadow-sm text-center">
+          <div class="mx-auto h-14 w-14 rounded-full border-4 border-blue-100 border-t-[#00346f] spinner"></div>
+          <h2 class="font-display text-3xl font-extrabold mt-5 text-[#00346f]">Processando Inteligencia</h2>
+          <ul class="mt-5 mx-auto max-w-md text-left space-y-2 text-sm text-slate-700">
+            <li><span class="font-semibold text-emerald-600">v</span> leitura semantica</li>
+            <li><span class="font-semibold text-amber-600">*</span> cruzando vetores</li>
+            <li><span class="font-semibold text-slate-400">o</span> gerando plano</li>
+          </ul>
         </div>
 
-        <div class="metrics">
-          <div class="metric-card">
-            <span>Score ponderado</span>
-            <strong id="metric-weighted">0%</strong>
+        <div class="mt-5 grid gap-3 md:grid-cols-2">
+          <article class="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
+            <h3 class="font-display font-bold text-[#00346f]">Base de conhecimento</h3>
+            <p class="text-sm text-slate-600 mt-1">Evidencias reais extraidas do curriculo com contexto tecnico.</p>
+          </article>
+          <article class="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
+            <h3 class="font-display font-bold text-[#00346f]">Precisao cirurgica</h3>
+            <p class="text-sm text-slate-600 mt-1">Prioriza lacunas de maior impacto para acelerar sua evolucao.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="results-panel" class="screen">
+        <div class="rounded-2xl border border-blue-100 bg-white p-5 md:p-8 shadow-sm">
+          <div class="rounded-2xl bg-gradient-to-br from-[#00346f] to-[#004a99] text-white p-5 md:p-6 flex flex-col md:flex-row gap-5 md:items-center md:justify-between">
+            <div class="mx-auto md:mx-0 score-circle-wrap">
+              <svg viewBox="0 0 120 120" class="score-circle">
+                <circle class="score-ring-bg" cx="60" cy="60" r="50"></circle>
+                <circle id="score-ring-progress" class="score-ring-progress" cx="60" cy="60" r="50"></circle>
+              </svg>
+              <div class="score-circle-center">
+                <strong id="metric-match">0%</strong>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.12em] font-semibold text-blue-100">Total Alignment</p>
+              <p class="font-display text-2xl md:text-3xl font-bold mt-1">Resultado da analise</p>
+              <p class="text-sm text-blue-100 mt-1">Veja seu nivel de aderencia e os proximos passos recomendados.</p>
+            </div>
           </div>
-          <div class="metric-card">
-            <span>Match</span>
-            <strong id="metric-competitiveness">-</strong>
+
+          <div class="grid gap-3 md:grid-cols-2 mt-4">
+            <article class="rounded-xl border border-blue-100 bg-white p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Score ponderado</p>
+              <p id="metric-weighted" class="font-display text-3xl font-bold text-[#00346f] mt-1">0%</p>
+            </article>
+            <article class="rounded-xl border border-blue-100 bg-white p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Competitividade</p>
+              <p id="metric-competitiveness" class="font-display text-3xl font-bold text-[#00346f] mt-1">-</p>
+            </article>
+          </div>
+
+          <article class="mt-4 rounded-xl bg-[#0e2f61] p-4 text-white">
+            <p class="text-xs uppercase tracking-wide text-blue-200">Proximo passo recomendado</p>
+            <p id="next-step-text" class="mt-2 font-medium">Aguardando analise para recomendar o foco ideal.</p>
+          </article>
+
+          <section class="mt-5 grid gap-4 md:grid-cols-2">
+            <div>
+              <h3 class="font-display font-bold text-[#00346f] mb-2">Skills fortes</h3>
+              <ul id="matched-list" class="flex flex-wrap gap-2"></ul>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-[#00346f] mb-2">Gaps prioritarios</h3>
+              <ul id="missing-list" class="space-y-2"></ul>
+            </div>
+          </section>
+
+          <div class="mt-6 flex gap-3">
+            <button id="to-step5-btn" class="h-12 px-7 rounded-xl text-white font-semibold bg-gradient-to-br from-[#00346f] to-[#004a99] shadow-sm hover:opacity-95 transition">
+              Gerar plano de estudo
+            </button>
           </div>
         </div>
+      </section>
 
-        <div class="next-step-card">
-          <h3>Proximo passo recomendado</h3>
-          <p id="next-step-text">Aguardando analise para recomendar o foco ideal.</p>
-        </div>
+      <section id="screen-actionplan" class="screen">
+        <div class="rounded-2xl border border-blue-100 bg-white p-5 md:p-8 shadow-sm">
+          <p class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">Etapa final</p>
+          <h2 class="font-display text-3xl md:text-4xl font-extrabold mt-3 text-[#00346f]">Plano de transicao personalizado</h2>
 
-        <div class="skills-section">
-          <div class="skills-col">
-            <h3>Voce ja esta bem posicionado em</h3>
-            <ul id="matched-list" class="chips"></ul>
+          <section class="mt-6">
+            <h3 class="font-display font-bold text-[#00346f] mb-3">Timeline de 4 semanas</h3>
+            <div id="study-plan" class="space-y-3"></div>
+          </section>
+
+          <section class="mt-6 grid gap-4 lg:grid-cols-2">
+            <article class="rounded-xl border border-blue-100 bg-white p-4">
+              <h3 class="font-display font-bold text-[#00346f] mb-2">Sugestoes de curriculo</h3>
+              <ul id="suggestions-list" class="space-y-2"></ul>
+            </article>
+            <article class="rounded-xl border border-blue-100 bg-white p-4">
+              <h3 class="font-display font-bold text-[#00346f] mb-2">Historico de analises</h3>
+              <div id="history-list" class="space-y-2"></div>
+            </article>
+          </section>
+
+          <details class="mt-5 rounded-xl border border-blue-100 bg-slate-50 p-4" open>
+            <summary class="cursor-pointer font-display font-bold text-[#00346f]">Como encontramos essas conclusoes (RAG)</summary>
+            <ul id="evidence-list" class="mt-3 space-y-2"></ul>
+          </details>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a id="download-pdf-link" class="h-11 px-5 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold inline-flex items-center" href="#" target="_blank">Download PDF</a>
+            <button id="download-md-btn" class="h-11 px-5 rounded-xl text-white font-semibold bg-gradient-to-br from-[#00346f] to-[#004a99]">Export MD</button>
           </div>
-          <div class="skills-col">
-            <h3>Pontos que podem melhorar</h3>
-            <ul id="missing-list" class="missing-bars"></ul>
-          </div>
-        </div>
-
-        <div class="section-header">
-          <h3>Plano de 4 semanas</h3>
-        </div>
-        <div id="study-plan" class="timeline"></div>
-
-        <div class="section-header">
-          <h3>Sugestoes para curriculo</h3>
-        </div>
-        <ul id="suggestions-list" class="suggestions-list"></ul>
-
-        <details class="evidence-accordion" open>
-          <summary>Como encontramos essas conclusoes</summary>
-          <ul id="evidence-list"></ul>
-        </details>
-
-        <div class="actions">
-          <button id="download-md-btn" class="btn">Baixar Markdown</button>
-          <a id="download-pdf-link" class="btn" href="#" target="_blank">Baixar PDF</a>
         </div>
       </section>
     </main>
