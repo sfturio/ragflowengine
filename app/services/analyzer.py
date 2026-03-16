@@ -147,7 +147,9 @@ def _build_skill_breakdown(
 
         evidence = None
         if present and best_hit and semantic_score >= 0.08:
-            excerpt = _excerpt_around_skill(best_hit[0].text, skill, max_len=520)
+            excerpt = _excerpt_around_skill(
+                best_hit[0].text, skill, max_len=520, include_ellipsis=False
+            )
             evidence = (
                 f"Evidencia (chunk {best_hit[0].chunk_id}, score={semantic_score:.2f}): "
                 f"{excerpt}"
@@ -167,7 +169,9 @@ def _build_skill_breakdown(
     return breakdown
 
 
-def _excerpt_around_skill(text: str, skill: str, max_len: int = 180) -> str:
+def _excerpt_around_skill(
+    text: str, skill: str, max_len: int = 180, include_ellipsis: bool = True
+) -> str:
     raw = re.sub(r"\s+", " ", text).strip()
     if len(raw) <= max_len:
         return raw
@@ -188,7 +192,10 @@ def _excerpt_around_skill(text: str, skill: str, max_len: int = 180) -> str:
         # Fallback to the beginning, but avoid breaking mid-word.
         cut = raw[:max_len]
         last_space = cut.rfind(" ")
-        return (cut[:last_space] if last_space > 0 else cut).rstrip() + "..."
+        snippet = (cut[:last_space] if last_space > 0 else cut).rstrip()
+        if include_ellipsis and len(raw) > len(snippet):
+            return snippet + "..."
+        return snippet
 
     center = (match_start + match_end) // 2
     left = max(0, center - max_len // 2)
@@ -205,9 +212,9 @@ def _excerpt_around_skill(text: str, skill: str, max_len: int = 180) -> str:
             right = prev_space
 
     snippet = raw[left:right].strip()
-    if left > 0:
+    if include_ellipsis and left > 0:
         snippet = "... " + snippet
-    if right < len(raw):
+    if include_ellipsis and right < len(raw):
         snippet = snippet + " ..."
     return snippet
 
