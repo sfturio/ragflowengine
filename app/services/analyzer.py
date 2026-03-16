@@ -147,7 +147,7 @@ def _build_skill_breakdown(
 
         evidence = None
         if present and best_hit and semantic_score >= 0.08:
-            excerpt = _excerpt_around_skill(best_hit[0].text, skill, max_len=180)
+            excerpt = _excerpt_around_skill(best_hit[0].text, skill, max_len=520)
             evidence = (
                 f"Evidencia (chunk {best_hit[0].chunk_id}, score={semantic_score:.2f}): "
                 f"{excerpt}"

@@ -214,6 +214,11 @@ textarea {
   background: #fafcff;
 }
 
+#evidence-list li {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .hidden {
   display: none;
 }
