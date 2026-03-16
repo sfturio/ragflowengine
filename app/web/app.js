@@ -1,6 +1,8 @@
 const apiBase = window.location.origin;
 
 const elements = {
+  homeNavLink: document.getElementById("home-nav-link"),
+  historyNavLink: document.getElementById("history-nav-link"),
   refreshHistoryBtn: document.getElementById("refresh-history-btn"),
   continueStep2Btn: document.getElementById("continue-step2-btn"),
   backStep1Btn: document.getElementById("back-step1-btn"),
@@ -359,6 +361,20 @@ function escapeHtml(text) {
 }
 
 function bindNavigation() {
+  const goToHome = () => {
+    setScreen("upload");
+    setStatus("");
+    refreshStepByInputs();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const goToHistory = () => {
+    fetchHistory();
+    setScreen("actionPlan");
+    setStep(4);
+    elements.historyList.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   elements.continueStep2Btn.addEventListener("click", () => {
     setScreen("target");
     setStep(2);
@@ -374,15 +390,20 @@ function bindNavigation() {
     setStep(4);
   });
 
-  elements.refreshHistoryBtn.addEventListener("click", () => {
-    fetchHistory();
-    setScreen("actionPlan");
-    if (currentAnalysis) {
-      setStep(4);
-    } else {
-      refreshStepByInputs();
-    }
-  });
+  if (elements.refreshHistoryBtn) {
+    elements.refreshHistoryBtn.addEventListener("click", goToHistory);
+  }
+
+  if (elements.homeNavLink) {
+    elements.homeNavLink.addEventListener("click", goToHome);
+  }
+
+  if (elements.historyNavLink) {
+    elements.historyNavLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      goToHistory();
+    });
+  }
 
   elements.resumeText.addEventListener("input", refreshStepByInputs);
   elements.jobDescription.addEventListener("input", refreshStepByInputs);
