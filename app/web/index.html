@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareerFit RAG</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">CareerFit RAG</div>
+      <button id="refresh-history-btn" class="btn btn-ghost">Atualizar historico</button>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <h1>Descubra sua aderencia real a qualquer vaga</h1>
+        <p class="muted">
+          Envie seu curriculo, cole a vaga e receba score, gaps, plano de estudo e relatorio.
+        </p>
+
+        <div class="steps">
+          <div class="step active">1. Curriculo</div>
+          <div class="step">2. Vaga</div>
+          <div class="step">3. Analise</div>
+          <div class="step">4. Acao</div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="resume-pdf">Curriculo (PDF)</label>
+            <input id="resume-pdf" type="file" accept=".pdf" />
+          </div>
+          <div>
+            <label for="target-role">Cargo alvo</label>
+            <input id="target-role" type="text" placeholder="Ex: Backend Developer .NET" />
+          </div>
+        </div>
+
+        <div>
+          <label for="resume-text">Ou cole o texto do curriculo</label>
+          <textarea
+            id="resume-text"
+            rows="6"
+            placeholder="Cole aqui o texto do curriculo caso nao use PDF"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="job-description">Descricao da vaga</label>
+          <textarea
+            id="job-description"
+            rows="8"
+            placeholder="Cole requisitos, responsabilidades e diferenciais da vaga"
+          ></textarea>
+        </div>
+
+        <div class="actions">
+          <button id="analyze-btn" class="btn btn-primary">Analisar vaga</button>
+          <span id="status-text" class="muted"></span>
+        </div>
+      </section>
+
+      <aside class="panel history-panel">
+        <h2>Analises recentes</h2>
+        <div id="history-list" class="history-list"></div>
+      </aside>
+
+      <section id="results-panel" class="panel hidden">
+        <h2>Results Dashboard</h2>
+        <div class="metrics">
+          <div class="metric-card">
+            <span>Match Score</span>
+            <strong id="metric-match">0%</strong>
+          </div>
+          <div class="metric-card">
+            <span>Score Ponderado</span>
+            <strong id="metric-weighted">0%</strong>
+          </div>
+        </div>
+
+        <div class="cols">
+          <div>
+            <h3>Skills em aderencia</h3>
+            <ul id="matched-list" class="chips"></ul>
+          </div>
+          <div>
+            <h3>Gaps de competencias</h3>
+            <ul id="missing-list" class="chips warning"></ul>
+          </div>
+        </div>
+
+        <h3>Plano de 4 semanas</h3>
+        <div id="study-plan"></div>
+
+        <h3>Sugestoes para curriculo</h3>
+        <ul id="suggestions-list"></ul>
+
+        <h3>Evidencias RAG</h3>
+        <ul id="evidence-list"></ul>
+
+        <div class="actions">
+          <button id="download-md-btn" class="btn">Baixar Markdown</button>
+          <a id="download-pdf-link" class="btn" href="#" target="_blank">Baixar PDF</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

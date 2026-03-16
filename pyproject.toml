@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-careerfit-engine"
+version = "0.1.0"
+description = "MVP de analise de aderencia entre curriculo e vaga com plano de estudo."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.116.0,<1.0.0",
+  "uvicorn[standard]>=0.35.0,<1.0.0",
+  "pydantic>=2.11.0,<3.0.0",
+  "pydantic-settings>=2.6.0,<3.0.0",
+  "pypdf>=5.0.0,<6.0.0",
+  "python-multipart>=0.0.20,<1.0.0",
+  "streamlit>=1.49.0,<2.0.0",
+  "requests>=2.32.0,<3.0.0",
+  "reportlab>=4.2.0,<5.0.0",
+  "psycopg[binary]>=3.2.0,<4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4.0,<9.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
