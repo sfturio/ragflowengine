@@ -168,29 +168,47 @@ def _build_skill_breakdown(
 
 
 def _excerpt_around_skill(text: str, skill: str, max_len: int = 180) -> str:
-    norm_text = _normalize(text)
+    raw = re.sub(r"\s+", " ", text).strip()
+    if len(raw) <= max_len:
+        return raw
+
+    lowered_raw = raw.lower()
     patterns = SKILL_PATTERNS.get(skill, [re.escape(skill)])
     match_start = -1
     match_end = -1
+
+    # Prefer exact match on raw text to keep offsets reliable.
     for pattern in patterns:
-        match = re.search(pattern, norm_text)
+        match = re.search(pattern, lowered_raw)
         if match:
             match_start, match_end = match.start(), match.end()
             break
 
-    raw = re.sub(r"\s+", " ", text).strip()
     if match_start < 0:
-        return raw[:max_len]
+        # Fallback to the beginning, but avoid breaking mid-word.
+        cut = raw[:max_len]
+        last_space = cut.rfind(" ")
+        return (cut[:last_space] if last_space > 0 else cut).rstrip() + "..."
 
-    # Map approximate normalized offset to raw string window.
-    center = min(len(raw), max(0, int((match_start + match_end) / 2)))
+    center = (match_start + match_end) // 2
     left = max(0, center - max_len // 2)
     right = min(len(raw), left + max_len)
+
+    # Align to word boundaries when possible.
+    if left > 0:
+        next_space = raw.find(" ", left)
+        if next_space != -1 and next_space < right:
+            left = next_space + 1
+    if right < len(raw):
+        prev_space = raw.rfind(" ", left, right)
+        if prev_space != -1 and prev_space > left:
+            right = prev_space
+
     snippet = raw[left:right].strip()
     if left > 0:
-        snippet = "..." + snippet
+        snippet = "... " + snippet
     if right < len(raw):
-        snippet = snippet + "..."
+        snippet = snippet + " ..."
     return snippet
 
 
