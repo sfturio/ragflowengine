@@ -9,6 +9,15 @@ MVP para analisar aderencia entre curriculo e vaga e gerar:
 - relatorio exportavel em Markdown/PDF,
 - evidencias por RAG vetorial local.
 
+## Melhorias recentes
+- Frontend refatorado para fluxo guiado (upload -> vaga -> analise -> resultado -> plano).
+- Evidencias RAG mais legiveis:
+  - resumo de evidencia por skill com texto mais limpo,
+  - sem quebra de palavra no meio ao truncar,
+  - metadados estruturados por item (`evidence_chunk`, `evidence_score`),
+  - renderizacao em cards com skill, chunk/score e corpo separado.
+- Chunking RAG com boundaries mais seguras para reduzir cortes artificiais.
+
 ## Requisitos
 - Python 3.12+
 - Opcional para IA local: Ollama
@@ -61,6 +70,10 @@ Exemplo de payload:
 Resposta inclui:
 - `match_score`: score bruto por quantidade de skills.
 - `weighted_match_score`: score com pesos (`Requisitos` > `Atribuicoes` > `Diferenciais`).
+- `skill_breakdown`: lista detalhada por skill, incluindo:
+  - `evidence` (texto resumido/legivel),
+  - `evidence_chunk` (id do chunk de origem),
+  - `evidence_score` (score semantico do trecho).
 - `report_markdown`: relatorio pronto para download.
 - `analysis_id` e `created_at`: identificacao da analise salva.
 
@@ -116,6 +129,7 @@ pytest -q
 ```
 
 ## Proximos passos
-- Substituir extracao heuristica por LLM.
-- Integrar embeddings e busca vetorial (RAG real).
-- Adicionar upload de PDF e persistencia em banco.
+- Evoluir embedding local para modelo semantico real (opcionalmente com vetor DB externo).
+- Melhorar ranqueamento de evidencias por contexto de experiencia/projeto.
+- Adicionar filtros no historico (cargo, data, score).
+- Criar suite de testes E2E para o frontend.

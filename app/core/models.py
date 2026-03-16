@@ -15,6 +15,8 @@ class SkillMatch(BaseModel):
     weight: float = 1.0
     source_section: str = "geral"
     evidence: str | None = None
+    evidence_chunk: str | None = None
+    evidence_score: float | None = None
 
 
 class StudyItem(BaseModel):

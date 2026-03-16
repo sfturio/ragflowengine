@@ -146,12 +146,13 @@ def _build_skill_breakdown(
         present = lexical_present
 
         evidence = None
+        evidence_chunk = None
+        evidence_score = None
         if present and best_hit and semantic_score >= 0.08:
             excerpt = _build_relevant_evidence_summary(best_hit[0].text, skill)
-            evidence = (
-                f"Evidencia (chunk {best_hit[0].chunk_id}, score={semantic_score:.2f}): "
-                f"{excerpt}"
-            )
+            evidence = excerpt
+            evidence_chunk = best_hit[0].chunk_id
+            evidence_score = round(semantic_score, 2)
         elif present:
             evidence = f"Mencao encontrada para '{skill}'."
 
@@ -162,6 +163,8 @@ def _build_skill_breakdown(
                 weight=weight,
                 source_section=section,
                 evidence=evidence,
+                evidence_chunk=evidence_chunk,
+                evidence_score=evidence_score,
             )
         )
     return breakdown
@@ -235,6 +238,44 @@ def _normalize_segment_prefix(segment: str) -> str:
     ).strip()
 
 
+def _sanitize_text_boundaries(text: str) -> str:
+    cleaned = re.sub(r"\s+", " ", text).strip(" -|,;:")
+    if not cleaned:
+        return ""
+    tokens = cleaned.split()
+    if not tokens:
+        return ""
+    last = tokens[-1]
+    has_terminal_punct = cleaned[-1] in ".!?:;"
+    if (
+        not has_terminal_punct
+        and len(last) >= 12
+        and not re.search(r"[0-9]", last)
+        and not re.search(r"[A-Z]{2,}", last)
+    ):
+        tokens = tokens[:-1]
+        cleaned = " ".join(tokens).strip()
+    return cleaned
+
+
+def _truncate_text_naturally(text: str, max_chars: int = 260) -> str:
+    cleaned = _sanitize_text_boundaries(text)
+    if len(cleaned) <= max_chars:
+        if cleaned and cleaned[-1] not in ".!?":
+            return cleaned + "."
+        return cleaned
+
+    cut_window = cleaned[:max_chars]
+    punct_pos = max(cut_window.rfind(". "), cut_window.rfind("; "), cut_window.rfind(": "))
+    if punct_pos >= int(max_chars * 0.55):
+        candidate = cut_window[: punct_pos + 1].strip()
+    else:
+        word_pos = cut_window.rfind(" ")
+        candidate = cut_window[:word_pos].strip() if word_pos > 0 else cut_window.strip()
+    candidate = _sanitize_text_boundaries(candidate)
+    return candidate.rstrip(".") + "..."
+
+
 def _segment_relevance_score(segment: str, skill: str) -> int:
     normalized = _normalize(segment)
     score = 0
@@ -265,9 +306,16 @@ def _segment_relevance_score(segment: str, skill: str) -> int:
 
 
 def _build_relevant_evidence_summary(text: str, skill: str, max_chars: int = 260) -> str:
-    segments = [_normalize_segment_prefix(seg) for seg in _split_text_segments(text)]
+    segments = [
+        _sanitize_text_boundaries(_normalize_segment_prefix(seg))
+        for seg in _split_text_segments(text)
+    ]
+    segments = [seg for seg in segments if seg]
     if not segments:
-        return _excerpt_around_skill(text, skill, max_len=max_chars, include_ellipsis=False)
+        return _truncate_text_naturally(
+            _excerpt_around_skill(text, skill, max_len=max_chars, include_ellipsis=False),
+            max_chars=max_chars,
+        )
 
     ranked = sorted(
         segments,
@@ -291,9 +339,12 @@ def _build_relevant_evidence_summary(text: str, skill: str, max_chars: int = 260
             break
 
     if not picked:
-        return _excerpt_around_skill(text, skill, max_len=max_chars, include_ellipsis=False)
+        return _truncate_text_naturally(
+            _excerpt_around_skill(text, skill, max_len=max_chars, include_ellipsis=False),
+            max_chars=max_chars,
+        )
 
-    return " | ".join(picked)
+    return _truncate_text_naturally(" | ".join(picked), max_chars=max_chars)
 
 
 def _build_study_plan(prioritized_missing: list[tuple[str, float, str]]) -> list[StudyItem]:
@@ -440,7 +491,14 @@ def _build_markdown_report(
     lines.append("")
     lines.append("## Evidencias (RAG)")
     evidence_items = [item for item in breakdown if item.present_in_resume and item.evidence]
-    lines.extend([f"- {item.skill}: {item.evidence}" for item in evidence_items[:10]])
+    for item in evidence_items[:10]:
+        meta_parts: list[str] = []
+        if item.evidence_chunk:
+            meta_parts.append(f"chunk {item.evidence_chunk}")
+        if item.evidence_score is not None:
+            meta_parts.append(f"score {item.evidence_score:.2f}")
+        meta = f" ({' | '.join(meta_parts)})" if meta_parts else ""
+        lines.append(f"- {item.skill}{meta}: {item.evidence}")
     if not evidence_items:
         lines.append("- Sem evidencia relevante recuperada.")
     lines.append("")
@@ -495,3 +553,4 @@ def analyze_resume_vs_job(
         resume_optimization_suggestions=suggestions,
         report_markdown=report_markdown,
     )
+

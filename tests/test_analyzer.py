@@ -1,5 +1,7 @@
+import re
+
 from app.services.analyzer import analyze_resume_vs_job, extract_skills
-from app.services.rag_engine import build_index, search
+from app.services.rag_engine import build_index, chunk_text, search
 
 
 def test_extract_skills_detects_known_terms() -> None:
@@ -59,6 +61,14 @@ def test_rag_engine_returns_relevant_chunk() -> None:
     assert "entity framework" in hits[0][0].text.lower()
 
 
+def test_chunking_avoids_mid_word_breaks_on_long_blocks() -> None:
+    text = " ".join(["idempotencia"] * 120)
+    chunks = chunk_text(text, chunk_size=70, overlap=10)
+    assert chunks
+    for chunk in chunks:
+        assert all(token == "idempotencia" for token in chunk.split())
+
+
 def test_breakdown_contains_rag_evidence_for_present_skill() -> None:
     resume = "Experiencia com Python, FastAPI e PostgreSQL em sistema backend."
     job = "Requisitos: Python, FastAPI e SQL."
@@ -91,3 +101,19 @@ def test_evidence_is_compact_and_skill_focused() -> None:
     assert ef.evidence is not None
     assert len(ef.evidence) < 360
     assert "entity framework" in ef.evidence.lower()
+    assert ef.evidence_chunk is not None
+    assert ef.evidence_score is not None
+    assert not ef.evidence.endswith("Idempotê")
+
+
+def test_evidence_truncation_is_word_safe() -> None:
+    resume = (
+        "Experiencia backend com ASP.NET Core, Entity Framework Core e APIs REST em sistemas de pagamento. "
+        "Implementou autenticacao JWT, idempotencia e arquitetura em camadas para alta confiabilidade. "
+        "Atuou com PostgreSQL, SQL e clean architecture em projetos de producao."
+    )
+    job = "Requisitos: ASP.NET Core, Entity Framework, REST API, SQL."
+    result = analyze_resume_vs_job(resume_text=resume, job_description=job, target_role="Backend .NET")
+    item = next(i for i in result.skill_breakdown if i.skill == "entity framework")
+    assert item.evidence is not None
+    assert re.search(r"[A-Za-z0-9)](?:\\.{3}|[.!?])$", item.evidence)

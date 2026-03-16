@@ -18,7 +18,7 @@ def chunk_text(text: str, chunk_size: int = 400, overlap: int = 80) -> list[str]
 
     # Prefer paragraph-aware chunking before falling back to sliding windows.
     normalized = text.replace("\r\n", "\n")
-    parts = [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n\s*\n|•", normalized)]
+    parts = [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n\s*\n|\u2022", normalized)]
     parts = [p for p in parts if len(p) >= 30]
     if not parts:
         parts = [re.sub(r"\s+", " ", normalized).strip()]
@@ -35,14 +35,36 @@ def chunk_text(text: str, chunk_size: int = 400, overlap: int = 80) -> list[str]
             if len(part) <= chunk_size:
                 current = part
             else:
-                # Fallback for oversized blocks.
+                # Fallback for oversized blocks with safer sentence/word boundaries.
                 start = 0
                 while start < len(part):
-                    end = min(start + chunk_size, len(part))
-                    chunks.append(part[start:end])
-                    if end == len(part):
+                    target_end = min(start + chunk_size, len(part))
+                    if target_end == len(part):
+                        chunks.append(part[start:target_end].strip())
                         break
-                    start = max(end - overlap, start + 1)
+
+                    window = part[start:target_end]
+                    break_pos = max(
+                        window.rfind(". "),
+                        window.rfind("; "),
+                        window.rfind(": "),
+                        window.rfind(", "),
+                        window.rfind(" "),
+                    )
+                    end = start + break_pos + 1 if break_pos >= max(20, len(window) // 2) else target_end
+                    chunks.append(part[start:end].strip())
+                    if end >= len(part):
+                        break
+                    next_start = max(end - overlap, start + 1)
+                    if (
+                        0 < next_start < len(part)
+                        and part[next_start - 1].isalnum()
+                        and part[next_start].isalnum()
+                    ):
+                        next_space = part.find(" ", next_start)
+                        if next_space != -1:
+                            next_start = next_space + 1
+                    start = next_start
                 current = ""
     if current:
         chunks.append(current)

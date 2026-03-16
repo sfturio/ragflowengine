@@ -279,7 +279,19 @@ function renderResults(data) {
     .filter((item) => item.present_in_resume && item.evidence)
     .slice(0, 8);
   elements.evidenceList.innerHTML = evidenceItems
-    .map((item) => `<li><strong>${escapeHtml(item.skill)}:</strong> ${escapeHtml(item.evidence)}</li>`)
+    .map((item) => {
+      const evidence = parseEvidenceDetails(item);
+      const meta = evidence.chunk || evidence.score !== null
+        ? `<div class=\"evidence-meta\">${escapeHtml(buildEvidenceMeta(evidence.chunk, evidence.score))}</div>`
+        : "";
+      return `
+        <li class=\"evidence-item\">
+          <div class=\"evidence-skill\">${escapeHtml(item.skill)}</div>
+          ${meta}
+          <div class=\"evidence-body\">${escapeHtml(evidence.text)}</div>
+        </li>
+      `;
+    })
     .join("");
   if (!elements.evidenceList.innerHTML) {
     elements.evidenceList.innerHTML = "<li>Sem evidencias relevantes nesta analise.</li>";
@@ -358,6 +370,36 @@ function escapeHtml(text) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function parseEvidenceDetails(item) {
+  const raw = String(item.evidence || "").trim();
+  const structured = {
+    chunk: item.evidence_chunk || null,
+    score: typeof item.evidence_score === "number" ? item.evidence_score : null,
+    text: raw,
+  };
+
+  if (structured.chunk || structured.score !== null) {
+    return structured;
+  }
+
+  const legacyMatch = raw.match(/^Evidencia\s*\(chunk\s*([a-z0-9_-]+)\s*,\s*score=([0-9.]+)\):\s*(.+)$/i);
+  if (!legacyMatch) return structured;
+  return {
+    chunk: legacyMatch[1],
+    score: Number.parseFloat(legacyMatch[2]),
+    text: legacyMatch[3] || "",
+  };
+}
+
+function buildEvidenceMeta(chunk, score) {
+  const parts = [];
+  if (chunk) parts.push(`chunk ${chunk}`);
+  if (typeof score === "number" && Number.isFinite(score)) {
+    parts.push(`score ${score.toFixed(2)}`);
+  }
+  return parts.join(" • ");
 }
 
 function bindNavigation() {
