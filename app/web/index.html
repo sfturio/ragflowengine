@@ -8,96 +8,143 @@
   </head>
   <body>
     <header class="topbar">
-      <div class="brand">CareerFit RAG</div>
+      <div class="brand-wrap">
+        <div class="brand-badge">CF</div>
+        <div class="brand-text">
+          <strong class="brand">CareerFit RAG</strong>
+          <small>Analise de aderencia para vagas tech</small>
+        </div>
+      </div>
       <button id="refresh-history-btn" class="btn btn-ghost">Atualizar historico</button>
     </header>
 
-    <main class="layout">
-      <section class="panel">
-        <h1>Descubra sua aderencia real a qualquer vaga</h1>
-        <p class="muted">
-          Envie seu curriculo, cole a vaga e receba score, gaps, plano de estudo e relatorio.
-        </p>
-
-        <div class="steps">
-          <div class="step active">1. Curriculo</div>
-          <div class="step">2. Vaga</div>
-          <div class="step">3. Analise</div>
-          <div class="step">4. Acao</div>
+    <main class="page">
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">Career Intelligence</p>
+          <h1>Descubra sua aderencia real a qualquer vaga em segundos.</h1>
+          <p class="hero-subtitle">
+            Envie seu curriculo, cole a vaga e receba um plano claro do que melhorar.
+          </p>
         </div>
-
-        <div class="form-grid">
-          <div>
-            <label for="resume-pdf">Curriculo (PDF)</label>
-            <input id="resume-pdf" type="file" accept=".pdf" />
+        <div class="steps-card">
+          <div class="steps-track">
+            <div class="steps-progress" aria-hidden="true"></div>
           </div>
-          <div>
-            <label for="target-role">Cargo alvo</label>
-            <input id="target-role" type="text" placeholder="Ex: Backend Developer .NET" />
+          <div class="steps">
+            <div class="step active"><span>1</span><small>Curriculo</small></div>
+            <div class="step"><span>2</span><small>Vaga</small></div>
+            <div class="step"><span>3</span><small>Analise</small></div>
+            <div class="step"><span>4</span><small>Acao</small></div>
           </div>
-        </div>
-
-        <div>
-          <label for="resume-text">Ou cole o texto do curriculo</label>
-          <textarea
-            id="resume-text"
-            rows="6"
-            placeholder="Cole aqui o texto do curriculo caso nao use PDF"
-          ></textarea>
-        </div>
-
-        <div>
-          <label for="job-description">Descricao da vaga</label>
-          <textarea
-            id="job-description"
-            rows="8"
-            placeholder="Cole requisitos, responsabilidades e diferenciais da vaga"
-          ></textarea>
-        </div>
-
-        <div class="actions">
-          <button id="analyze-btn" class="btn btn-primary">Analisar vaga</button>
-          <span id="status-text" class="muted"></span>
         </div>
       </section>
 
-      <aside class="panel history-panel">
-        <h2>Analises recentes</h2>
-        <div id="history-list" class="history-list"></div>
-      </aside>
+      <section class="layout">
+        <section class="action-card">
+          <div class="section-header">
+            <h2>Passo 1 - Enviar curriculo</h2>
+            <p class="muted">Use PDF ou texto bruto para iniciar a analise.</p>
+          </div>
 
-      <section id="results-panel" class="panel hidden">
-        <h2>Results Dashboard</h2>
+          <div class="upload-area" id="resume-dropzone">
+            <input id="resume-pdf" class="file-input" type="file" accept=".pdf" />
+            <label for="resume-pdf" class="upload-inner">
+              <span class="upload-icon" aria-hidden="true">↑</span>
+              <strong>Clique ou arraste seu PDF aqui</strong>
+              <small>ou cole o texto abaixo</small>
+              <em id="resume-file-name">Nenhum arquivo selecionado</em>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <div>
+              <label for="target-role">Cargo alvo</label>
+              <input id="target-role" type="text" placeholder="Ex: Backend Developer .NET" />
+            </div>
+          </div>
+
+          <div class="flow-block">
+            <label for="resume-text">Texto do curriculo (opcional)</label>
+            <textarea
+              id="resume-text"
+              rows="7"
+              placeholder="Cole aqui o texto do curriculo caso nao use PDF"
+            ></textarea>
+          </div>
+
+          <div class="flow-block">
+            <label for="job-description">Passo 2 - Descricao da vaga</label>
+            <textarea
+              id="job-description"
+              rows="9"
+              placeholder="Cole requisitos, responsabilidades e diferenciais da vaga"
+            ></textarea>
+          </div>
+
+          <div class="actions">
+            <button id="analyze-btn" class="btn btn-primary">Analisar vaga</button>
+            <span id="status-text" class="muted"></span>
+          </div>
+        </section>
+
+        <aside class="history-panel">
+          <div class="section-header">
+            <h2>Analises recentes</h2>
+            <p class="muted">Acesse resultados anteriores com um clique.</p>
+          </div>
+          <div id="history-list" class="history-list"></div>
+        </aside>
+      </section>
+
+      <section id="results-panel" class="results-panel hidden">
+        <div class="results-hero-card">
+          <p>Match Score</p>
+          <strong id="metric-match">0%</strong>
+          <small>Visao geral de aderencia para a vaga analisada</small>
+        </div>
+
         <div class="metrics">
           <div class="metric-card">
-            <span>Match Score</span>
-            <strong id="metric-match">0%</strong>
-          </div>
-          <div class="metric-card">
-            <span>Score Ponderado</span>
+            <span>Score ponderado</span>
             <strong id="metric-weighted">0%</strong>
           </div>
+          <div class="metric-card">
+            <span>Competitividade</span>
+            <strong id="metric-competitiveness">-</strong>
+          </div>
         </div>
 
-        <div class="cols">
-          <div>
-            <h3>Skills em aderencia</h3>
+        <div class="next-step-card">
+          <h3>Proximo passo recomendado</h3>
+          <p id="next-step-text">Aguardando analise para recomendar o foco ideal.</p>
+        </div>
+
+        <div class="skills-section">
+          <div class="skills-col">
+            <h3>Voce ja esta bem posicionado em</h3>
             <ul id="matched-list" class="chips"></ul>
           </div>
-          <div>
-            <h3>Gaps de competencias</h3>
-            <ul id="missing-list" class="chips warning"></ul>
+          <div class="skills-col">
+            <h3>Pontos que podem melhorar</h3>
+            <ul id="missing-list" class="missing-bars"></ul>
           </div>
         </div>
 
-        <h3>Plano de 4 semanas</h3>
-        <div id="study-plan"></div>
+        <div class="section-header">
+          <h3>Plano de 4 semanas</h3>
+        </div>
+        <div id="study-plan" class="timeline"></div>
 
-        <h3>Sugestoes para curriculo</h3>
-        <ul id="suggestions-list"></ul>
+        <div class="section-header">
+          <h3>Sugestoes para curriculo</h3>
+        </div>
+        <ul id="suggestions-list" class="suggestions-list"></ul>
 
-        <h3>Evidencias RAG</h3>
-        <ul id="evidence-list"></ul>
+        <details class="evidence-accordion" open>
+          <summary>Como encontramos essas conclusoes</summary>
+          <ul id="evidence-list"></ul>
+        </details>
 
         <div class="actions">
           <button id="download-md-btn" class="btn">Baixar Markdown</button>
