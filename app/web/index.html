@@ -28,14 +28,24 @@
           </p>
         </div>
         <div class="steps-card">
-          <div class="steps-track">
-            <div class="steps-progress" aria-hidden="true"></div>
-          </div>
-          <div class="steps">
-            <div class="step active"><span>1</span><small>Curriculo</small></div>
-            <div class="step"><span>2</span><small>Vaga</small></div>
-            <div class="step"><span>3</span><small>Analise</small></div>
-            <div class="step"><span>4</span><small>Acao</small></div>
+          <p class="steps-caption">Fluxo guiado em 4 etapas</p>
+          <div class="stepper" aria-label="Progresso da analise">
+            <div class="stepper-step is-current" data-step="1">
+              <span class="stepper-dot">1</span>
+              <small>Curriculo</small>
+            </div>
+            <div class="stepper-step" data-step="2">
+              <span class="stepper-dot">2</span>
+              <small>Vaga</small>
+            </div>
+            <div class="stepper-step" data-step="3">
+              <span class="stepper-dot">3</span>
+              <small>Analise</small>
+            </div>
+            <div class="stepper-step" data-step="4">
+              <span class="stepper-dot">4</span>
+              <small>Acao</small>
+            </div>
           </div>
         </div>
       </section>
@@ -50,7 +60,7 @@
           <div class="upload-area" id="resume-dropzone">
             <input id="resume-pdf" class="file-input" type="file" accept=".pdf" />
             <label for="resume-pdf" class="upload-inner">
-              <span class="upload-icon" aria-hidden="true">↑</span>
+              <span class="upload-icon" aria-hidden="true">^</span>
               <strong>Clique ou arraste seu PDF aqui</strong>
               <small>ou cole o texto abaixo</small>
               <em id="resume-file-name">Nenhum arquivo selecionado</em>
@@ -110,7 +120,7 @@
             <strong id="metric-weighted">0%</strong>
           </div>
           <div class="metric-card">
-            <span>Competitividade</span>
+            <span>Match</span>
             <strong id="metric-competitiveness">-</strong>
           </div>
         </div>

@@ -106,69 +106,90 @@ body {
 }
 
 .steps-card {
-  margin-top: 20px;
+  margin-top: 16px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 14px 16px 12px;
+  padding: 10px 14px;
   box-shadow: var(--shadow);
 }
 
-.steps-track {
-  height: 6px;
-  border-radius: 999px;
-  background: #e3ebf7;
-  overflow: hidden;
-  margin-bottom: 10px;
+.steps-caption {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
 }
 
-.steps-progress {
-  width: 24%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #2e79cd, var(--accent));
-}
-
-.steps {
+.stepper {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 12px;
 }
 
-.step {
+.stepper::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: calc(12.5% + 12px);
+  right: calc(12.5% + 12px);
+  height: 2px;
+  background: #d6e0ef;
+  z-index: 0;
+}
+
+.stepper-step {
+  position: relative;
+  z-index: 1;
   display: flex;
-  gap: 8px;
+  gap: 7px;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  background: #f1f5fc;
-  color: #416084;
-  padding: 6px;
+  min-height: 30px;
+  color: #6b7d97;
+  font-weight: 700;
 }
 
-.step span {
+.stepper-dot {
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: #d8e5f8;
+  background: #e1e8f5;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #587091;
+  border: 1px solid #c7d5ea;
+}
+
+.stepper-step small {
   font-size: 0.74rem;
   font-weight: 700;
 }
 
-.step small {
-  font-size: 0.74rem;
-  font-weight: 700;
+.stepper-step.is-current {
+  color: #0c3f81;
 }
 
-.step.active {
-  background: #e8f6f0;
-  color: #0f5d42;
+.stepper-step.is-current .stepper-dot {
+  background: #0e56ad;
+  border-color: #0e56ad;
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(14, 86, 173, 0.18);
 }
 
-.step.active span {
-  background: #bde9d7;
+.stepper-step.is-complete {
+  color: #0e5a41;
+}
+
+.stepper-step.is-complete .stepper-dot {
+  background: #e2f5ed;
+  border-color: #bde3d3;
+  color: #0e5a41;
 }
 
 .layout {
@@ -617,8 +638,12 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 
-  .steps {
+  .stepper {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stepper::before {
+    display: none;
   }
 }
 

@@ -23,9 +23,40 @@ const elements = {
   evidenceList: document.getElementById("evidence-list"),
   downloadMdBtn: document.getElementById("download-md-btn"),
   downloadPdfLink: document.getElementById("download-pdf-link"),
+  stepperSteps: Array.from(document.querySelectorAll(".stepper-step")),
 };
 
 let currentAnalysis = null;
+
+function getCurrentFlowStep() {
+  if (!elements.resultsPanel.classList.contains("hidden")) return 4;
+  const hasResume = Boolean(elements.resumePdf.files[0]) || elements.resumeText.value.trim().length > 0;
+  const hasJobDescription = elements.jobDescription.value.trim().length > 0;
+  if (!hasResume) return 1;
+  if (!hasJobDescription) return 2;
+  return 3;
+}
+
+function renderStepper(step) {
+  if (!elements.stepperSteps.length) return;
+  elements.stepperSteps.forEach((node) => {
+    const nodeStep = Number(node.dataset.step || 0);
+    node.classList.remove("is-current", "is-complete");
+    if (nodeStep < step) {
+      node.classList.add("is-complete");
+    } else if (nodeStep === step) {
+      node.classList.add("is-current");
+    }
+    const dot = node.querySelector(".stepper-dot");
+    if (dot) {
+      dot.textContent = nodeStep < step ? "v" : String(nodeStep);
+    }
+  });
+}
+
+function refreshStepper() {
+  renderStepper(getCurrentFlowStep());
+}
 
 async function fetchHistory() {
   try {
@@ -92,6 +123,7 @@ async function analyze() {
   }
 
   setStatus("Analisando...");
+  renderStepper(3);
   elements.analyzeBtn.disabled = true;
 
   try {
@@ -136,6 +168,7 @@ async function analyze() {
 function renderResults(data) {
   currentAnalysis = data;
   elements.resultsPanel.classList.remove("hidden");
+  renderStepper(4);
   const rawScore = data.match_score || 0;
   const weightedScore = data.weighted_match_score || 0;
   elements.metricMatch.textContent = `${rawScore.toFixed(2)}%`;
@@ -246,6 +279,7 @@ function bindUploadUX() {
   const setFileName = () => {
     const file = elements.resumePdf.files && elements.resumePdf.files[0];
     elements.resumeFileName.textContent = file ? file.name : "Nenhum arquivo selecionado";
+    refreshStepper();
   };
 
   elements.resumePdf.addEventListener("change", setFileName);
@@ -272,6 +306,9 @@ function bindUploadUX() {
 elements.analyzeBtn.addEventListener("click", analyze);
 elements.refreshHistoryBtn.addEventListener("click", fetchHistory);
 elements.downloadMdBtn.addEventListener("click", downloadMarkdown);
+elements.resumeText.addEventListener("input", refreshStepper);
+elements.jobDescription.addEventListener("input", refreshStepper);
 bindUploadUX();
+refreshStepper();
 
 fetchHistory();
