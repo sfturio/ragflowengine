@@ -15,67 +15,67 @@
   const UI_TEXT = {
     navOther: 'Confira nosso outro app:',
     navOtherLink: 'ATSFlow Engine',
-    navMatch: 'Analise de Match',
+    navMatch: 'Análise de Match',
     navResult: 'Resultado de Carreira',
-    navHistory: 'Historico',
+    navHistory: 'Histórico',
     navAbout: 'Sobre',
-    newAnalysis: 'Nova Analise',
-    heroBadge: 'RAGFlow Analise de Match',
-    heroTitle: 'Entenda como seu curriculo combina com vagas reais',
-    heroSub: 'Analise semantica com transparencia deterministica e orientacoes praticas.',
-    uploadTitle: 'Contexto do Curriculo',
+    newAnalysis: 'Nova Análise',
+    heroBadge: 'RAGFlow Análise de Match',
+    heroTitle: 'Entenda como seu currículo combina com vagas reais',
+    heroSub: 'Análise semântica com transparência determinística e orientações práticas.',
+    uploadTitle: 'Contexto do Currículo',
     uploadBody: 'Clique para enviar ou arraste PDF (ate 8MB)',
     uploadNoFile: 'Nenhum arquivo selecionado ainda.',
     uploadSelectedPrefix: 'PDF selecionado:',
-    resumeLabel: 'Texto do Curriculo',
-    resumePlaceholder: 'Se preferir, cole o texto do curriculo aqui. Se voce ja enviou PDF, pode deixar em branco.',
-    jobLabel: 'Descricao da Vaga',
-    jobPlaceholder: 'Cole aqui a descricao da vaga alvo...',
-    strategy: 'Parametros de Estrategia',
+    resumeLabel: 'Texto do Currículo',
+    resumePlaceholder: 'Se preferir, cole o texto do currículo aqui. Se você já enviou PDF, pode deixar em branco.',
+    jobLabel: 'Descrição da Vaga',
+    jobPlaceholder: 'Cole aqui a descrição da vaga-alvo...',
+    strategy: 'Parâmetros de Estratégia',
     targetRole: 'Cargo Alvo',
     targetRolePlaceholder: 'ex.: Engenheiro de Software Senior',
-    step1: 'Curriculo carregado',
+    step1: 'Currículo carregado',
     step2: 'Contexto da vaga mapeado',
-    step3: 'Analise semantica',
-    run: 'Rodar Analise de Carreira',
+    step3: 'Análise semântica',
+    run: 'Rodar Análise de Carreira',
     running: 'Analisando...',
-    previewTitle: 'Previa da Analise',
+    previewTitle: 'Prévia da Análise',
     previewText: 'Match de skills, gaps, evidencias e plano de estudo em um fluxo unico.',
     noResult: 'Sem resultado ainda',
-    noResultSub: 'Rode uma analise na tela de Match primeiro.',
-    backToMatch: 'Ir para Analise de Match',
+    noResultSub: 'Rode uma análise na tela de Match primeiro.',
+    backToMatch: 'Ir para Análise de Match',
     resultBadge: 'Resultado de Carreira',
-    resultTitle: 'Avaliacao de Match',
+    resultTitle: 'Avaliação de Match',
     weightedScore: 'Match Ponderado',
     insight: 'Insight de IA',
-    download: 'Baixar Relatorio',
-    skillsViz: 'Visualizacao de Match de Skills',
+    download: 'Baixar Relatório',
+    skillsViz: 'Visualização de Match de Skills',
     gaps: 'Skills em Gap',
     noGaps: 'Nenhum gap relevante encontrado.',
     timeline: 'Plano de Estudo',
-    strategic: 'Melhorias Estrategicas',
-    historyTitle: 'Historico',
-    historySub: 'Linha do tempo das analises anteriores.',
+    strategic: 'Melhorias Estratégicas',
+    historyTitle: 'Histórico',
+    historySub: 'Linha do tempo das análises anteriores.',
     open: 'Abrir',
-    emptyHistory: 'Nenhuma analise ainda.',
+    emptyHistory: 'Nenhuma análise ainda.',
     model: 'Modelo',
     provider: 'Provedor',
-    errorLoad: 'Nao foi possivel carregar os dados. Tente novamente.',
+    errorLoad: 'Não foi possível carregar os dados. Tente novamente.',
     aboutTitle: 'Sobre o RAGFlow Engine',
     aboutSubtitle:
-      'Veja como o RAGFlow analisa a compatibilidade entre seu curriculo e oportunidades reais usando inteligencia semantica.',
+      'Veja como o RAGFlow analisa a compatibilidade entre seu currículo e oportunidades reais usando inteligência semântica.',
     aboutWhatIsTitle: 'O que este app faz',
     aboutWhatIsBody:
-      'O RAGFlow avalia o nivel de aderencia entre seu perfil profissional e a descricao de uma vaga, identificando competencias alinhadas, lacunas relevantes e oportunidades de melhoria. O sistema transforma essa analise em recomendacoes praticas para fortalecer seu posicionamento no mercado.',
-    aboutHowTitle: 'Como a analise funciona',
+      'O RAGFlow avalia o nível de aderência entre seu perfil profissional e a descrição de uma vaga, identificando competências alinhadas, lacunas relevantes e oportunidades de melhoria. O sistema transforma essa análise em recomendações práticas para fortalecer seu posicionamento no mercado.',
+    aboutHowTitle: 'Como a análise funciona',
     aboutHowBody:
-      'A engine combina processamento semantico, recuperacao contextual de informacoes e regras deterministicas para gerar resultados explicaveis. Isso permite um diagnostico mais inteligente do que simples comparacao por palavras-chave.',
+      'O RAGFlow entende o contexto do seu currículo e compara com o que a vaga realmente exige. Em vez de apenas buscar palavras-chave isoladas, o sistema interpreta experiências, tecnologias e responsabilidades para calcular um nível de compatibilidade mais realista e acionável.',
     aboutLimitsTitle: 'Limites importantes',
     aboutLimitsBody:
-      'Os resultados servem como orientacao estrategica e nao garantem aprovacao em processos seletivos. Cada empresa possui criterios proprios, portanto o ideal e usar o feedback como base para ajustes continuos no curriculo e no plano de carreira.',
-    aboutTechTitle: 'Base tecnica',
+      'Os resultados servem como orientação estratégica e não garantem aprovação em processos seletivos. Cada empresa possui critérios próprios, portanto o ideal é usar o feedback como base para ajustes contínuos no currículo e no plano de carreira.',
+    aboutTechTitle: 'Base técnica',
     aboutTechBody:
-      'Desenvolvido com arquitetura moderna em Node.js e pipeline de analise baseado em RAG (Retrieval-Augmented Generation), o sistema integra parsing de documentos, vetorizacao semantica e fallback resiliente de modelos de IA para manter consistencia mesmo em cenarios adversos.'
+      'Desenvolvido com arquitetura moderna em Node.js e pipeline de análise baseado em RAG (Retrieval-Augmented Generation), o sistema integra parsing de documentos, vetorização semântica e fallback resiliente de modelos de IA para manter consistência mesmo em cenários adversos.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
@@ -103,32 +103,32 @@
           </div>
 
           <ol class="space-y-3 text-[15px] leading-relaxed list-decimal pl-5 mb-10">
-            <li>Envie seu curriculo em PDF ou cole o texto.</li>
-            <li>Adicione a descricao da vaga que voce quer atingir.</li>
+            <li>Envie seu currículo em PDF ou cole o texto.</li>
+            <li>Adicione a descrição da vaga que você quer atingir.</li>
             <li>Opcionalmente, defina seu cargo alvo.</li>
-            <li>Rode a analise.</li>
-            <li>Revise os scores, insights e sugestoes de melhoria.</li>
-            <li>Baixe ou revise sua analise depois no Historico.</li>
+            <li>Rode a análise.</li>
+            <li>Revise os scores, insights e sugestões de melhoria.</li>
+            <li>Baixe ou revise sua análise depois no Histórico.</li>
           </ol>
 
           <section class="mb-10">
             <h3 class="text-xl font-bold mb-4">Perguntas Frequentes</h3>
             <div class="space-y-4 text-[15px] leading-relaxed">
-              <div><p class="font-semibold">Esta analise e 100% precisa?</p><p class="text-on-surface-variant">Nao. Esta ferramenta combina analise deterministica e assistencia de IA para orientar, sem garantias absolutas.</p></div>
-              <div><p class="font-semibold">Voce armazena meu curriculo?</p><p class="text-on-surface-variant">As analises podem ser armazenadas localmente para melhorar sua experiencia e manter historico.</p></div>
-              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-on-surface-variant">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre sao recomendados.</p></div>
-              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-on-surface-variant">Cada plataforma usa heuristicas e modelos diferentes. Este app prioriza clareza, transparencia e insights acionaveis.</p></div>
-              <div><p class="font-semibold">Qual a diferenca entre ATSFlow e RAGFlow?</p><p class="text-on-surface-variant">ATSFlow foca em otimizacao tecnica para ATS. RAGFlow foca em match semantico e estrategia de carreira.</p></div>
+              <div><p class="font-semibold">Esta análise é 100% precisa?</p><p class="text-on-surface-variant">Não. Esta ferramenta combina análise determinística e assistência de IA para orientar, sem garantias absolutas.</p></div>
+              <div><p class="font-semibold">Você armazena meu currículo?</p><p class="text-on-surface-variant">As análises podem ser armazenadas localmente para melhorar sua experiência e manter histórico.</p></div>
+              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-on-surface-variant">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre são recomendados.</p></div>
+              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-on-surface-variant">Cada plataforma usa heurísticas e modelos diferentes. Este app prioriza clareza, transparência e insights acionáveis.</p></div>
+              <div><p class="font-semibold">Qual a diferença entre ATSFlow e RAGFlow?</p><p class="text-on-surface-variant">ATSFlow foca em otimização técnica para ATS. RAGFlow foca em match semântico e estratégia de carreira.</p></div>
             </div>
           </section>
 
           <section>
             <h3 class="text-xl font-bold mb-4">Dicas para melhores resultados</h3>
             <ul class="space-y-2 text-[15px] leading-relaxed list-disc pl-5 text-on-surface-variant">
-              <li>Use descricoes de vaga completas.</li>
-              <li>Evite curriculos extremamente curtos.</li>
-              <li>Foque em conquistas mensuraveis.</li>
-              <li>Mantenha a formatacao simples e amigavel para ATS.</li>
+              <li>Use descrições de vaga completas.</li>
+              <li>Evite currículos extremamente curtos.</li>
+              <li>Foque em conquistas mensuráveis.</li>
+              <li>Mantenha a formatação simples e amigável para ATS.</li>
             </ul>
           </section>
         </div>
@@ -144,7 +144,7 @@
             <h2 class="text-2xl font-bold tracking-tight">Feedback</h2>
             <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Fechar</button>
           </div>
-          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestao ou reporte um problema</label>
+          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestão ou reporte um problema</label>
           <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/15 resize-none" placeholder="Digite seu feedback aqui...">${state.feedbackText || ''}</textarea>
           <div class="mt-5 flex justify-end">
             <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-primary hover:bg-primary-container transition-colors">Enviar Feedback</button>
@@ -321,7 +321,7 @@
             <span class="material-symbols-outlined">description</span>
           </div>
           <div class="min-w-0">
-            <p class="font-semibold truncate">${escapeHtml(item.targetRole || 'Analise sem titulo')}</p>
+            <p class="font-semibold truncate">${escapeHtml(item.targetRole || 'Análise sem título')}</p>
             <p class="text-xs text-on-surface-variant truncate">${escapeHtml(item.analysisId)}</p>
           </div>
         </div>
@@ -718,7 +718,7 @@
             body: JSON.stringify({ message: feedback })
           });
           const data = await response.json();
-          if (!response.ok) throw new Error(data.error || 'Nao foi possivel enviar feedback.');
+          if (!response.ok) throw new Error(data.error || 'Não foi possível enviar feedback.');
           state.feedbackText = '';
           state.feedbackOpen = false;
           render();
