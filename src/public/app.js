@@ -68,7 +68,7 @@
     return `
       <div class="space-y-1.5">
         <button id="open-help" class="w-full text-left px-2 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">help</span><span>Help</span>
+          <span class="material-symbols-outlined text-[18px]">help</span><span>Ajuda</span>
         </button>
         <button id="open-feedback" class="w-full text-left px-2 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-sm font-medium flex items-center gap-2">
           <span class="material-symbols-outlined text-[18px]">chat</span><span>Feedback</span>
@@ -82,37 +82,37 @@
       <div class="fixed inset-0 z-[70] bg-black/30 backdrop-blur-sm flex items-center justify-center p-4" data-close-modal="help">
         <div class="w-full max-w-3xl max-h-[86vh] overflow-y-auto bg-surface-container-lowest rounded-2xl shadow-2xl p-8 md:p-10">
           <div class="flex items-start justify-between gap-4 mb-8">
-            <h2 class="text-3xl font-bold tracking-tight">How to use this app</h2>
-            <button id="close-help" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Close</button>
+            <h2 class="text-3xl font-bold tracking-tight">Como usar este app</h2>
+            <button id="close-help" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Fechar</button>
           </div>
 
           <ol class="space-y-3 text-[15px] leading-relaxed list-decimal pl-5 mb-10">
-            <li>Upload your resume in PDF or paste the text.</li>
-            <li>Add the job description you want to target.</li>
-            <li>Optionally define your target role.</li>
-            <li>Run the analysis.</li>
-            <li>Review scores, insights, and improvement suggestions.</li>
-            <li>Download or revisit your analysis later in History.</li>
+            <li>Envie seu curriculo em PDF ou cole o texto.</li>
+            <li>Adicione a descricao da vaga que voce quer atingir.</li>
+            <li>Opcionalmente, defina seu cargo alvo.</li>
+            <li>Rode a analise.</li>
+            <li>Revise os scores, insights e sugestoes de melhoria.</li>
+            <li>Baixe ou revise sua analise depois no Historico.</li>
           </ol>
 
           <section class="mb-10">
-            <h3 class="text-xl font-bold mb-4">Frequently Asked Questions</h3>
+            <h3 class="text-xl font-bold mb-4">Perguntas Frequentes</h3>
             <div class="space-y-4 text-[15px] leading-relaxed">
-              <div><p class="font-semibold">Is this analysis 100% accurate?</p><p class="text-on-surface-variant">No. This tool combines deterministic analysis and AI assistance to provide helpful guidance, not guarantees.</p></div>
-              <div><p class="font-semibold">Do you store my resume?</p><p class="text-on-surface-variant">Analyses may be stored locally to improve your experience and allow history tracking.</p></div>
-              <div><p class="font-semibold">Can I use this for real job applications?</p><p class="text-on-surface-variant">Yes. The tool helps optimize structure and positioning, but final adjustments are always recommended.</p></div>
-              <div><p class="font-semibold">Why are scores different from other tools?</p><p class="text-on-surface-variant">Each platform uses different heuristics and models. This app focuses on clarity, transparency, and actionable insights.</p></div>
-              <div><p class="font-semibold">What is the difference between ATSFlow and RAGFlow?</p><p class="text-on-surface-variant">ATSFlow focuses on technical ATS optimization. RAGFlow focuses on semantic match and career strategy.</p></div>
+              <div><p class="font-semibold">Esta analise e 100% precisa?</p><p class="text-on-surface-variant">Nao. Esta ferramenta combina analise deterministica e assistencia de IA para orientar, sem garantias absolutas.</p></div>
+              <div><p class="font-semibold">Voce armazena meu curriculo?</p><p class="text-on-surface-variant">As analises podem ser armazenadas localmente para melhorar sua experiencia e manter historico.</p></div>
+              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-on-surface-variant">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre sao recomendados.</p></div>
+              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-on-surface-variant">Cada plataforma usa heuristicas e modelos diferentes. Este app prioriza clareza, transparencia e insights acionaveis.</p></div>
+              <div><p class="font-semibold">Qual a diferenca entre ATSFlow e RAGFlow?</p><p class="text-on-surface-variant">ATSFlow foca em otimizacao tecnica para ATS. RAGFlow foca em match semantico e estrategia de carreira.</p></div>
             </div>
           </section>
 
           <section>
-            <h3 class="text-xl font-bold mb-4">Tips for better results</h3>
+            <h3 class="text-xl font-bold mb-4">Dicas para melhores resultados</h3>
             <ul class="space-y-2 text-[15px] leading-relaxed list-disc pl-5 text-on-surface-variant">
-              <li>Use complete job descriptions.</li>
-              <li>Avoid extremely short resumes.</li>
-              <li>Focus on measurable achievements.</li>
-              <li>Keep formatting simple and ATS-friendly.</li>
+              <li>Use descricoes de vaga completas.</li>
+              <li>Evite curriculos extremamente curtos.</li>
+              <li>Foque em conquistas mensuraveis.</li>
+              <li>Mantenha a formatacao simples e amigavel para ATS.</li>
             </ul>
           </section>
         </div>
@@ -126,12 +126,12 @@
         <div class="w-full max-w-2xl bg-surface-container-lowest rounded-2xl shadow-2xl p-8">
           <div class="flex items-start justify-between gap-4 mb-6">
             <h2 class="text-2xl font-bold tracking-tight">Feedback</h2>
-            <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Close</button>
+            <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Fechar</button>
           </div>
-          <label for="feedback-input" class="block text-sm font-semibold mb-3">Share your suggestion or report an issue</label>
-          <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/15 resize-none" placeholder="Type your feedback here...">${state.feedbackText || ''}</textarea>
+          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestao ou reporte um problema</label>
+          <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/15 resize-none" placeholder="Digite seu feedback aqui...">${state.feedbackText || ''}</textarea>
           <div class="mt-5 flex justify-end">
-            <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-primary hover:bg-primary-container transition-colors">Send Feedback</button>
+            <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-primary hover:bg-primary-container transition-colors">Enviar Feedback</button>
           </div>
         </div>
       </div>
