@@ -346,7 +346,7 @@
 
   function MatchPage() {
     return `
-      <section class="space-y-10">
+      <section class="space-y-6">
         <header class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div class="lg:col-span-8 space-y-4">
             ${SectionBadge(t('heroBadge'))}
