@@ -15,7 +15,8 @@ function applyLlmAssist(baseResult, llmText) {
   const lines = llmText
     .split("\n")
     .map((line) => line.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter((line) => !/^#{1,6}\s/.test(line));
   if (!lines.length) return baseResult;
 
   const summaryLine = lines.find((line) => !line.startsWith("-")) || "";
@@ -37,6 +38,7 @@ async function runAnalysis({ resumeText, jobDescription, targetRole }) {
   const llmResponse = await generateText({
     systemPrompt: RAG_FEEDBACK_SYSTEM_PROMPT,
     userPrompt: buildRagFeedbackPrompt({
+      language: deterministic?.metadata?.language || "en",
       targetRole,
       matchedSkills: deterministic.matchedSkills,
       missingSkills: deterministic.missingSkills,

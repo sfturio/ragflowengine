@@ -77,8 +77,48 @@ function clampScore(value) {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
 
+function detectLanguage(...chunks) {
+  const text = normalizeText(chunks.filter(Boolean).join(" "));
+  if (!text) return "en";
+
+  const ptHints = [
+    " curriculo ",
+    " vaga ",
+    " experiencia ",
+    " habilidades ",
+    " educacao ",
+    " descricao ",
+    " cargo ",
+    " requisitos ",
+    "resumo",
+    "projetos",
+    "objetivo"
+  ];
+
+  const enHints = [
+    " resume ",
+    " job ",
+    " experience ",
+    " skills ",
+    " education ",
+    " description ",
+    " role ",
+    " requirements ",
+    "summary",
+    "projects",
+    "objective"
+  ];
+
+  let ptScore = 0;
+  let enScore = 0;
+  for (const hint of ptHints) if (text.includes(hint.trim()) || text.includes(hint)) ptScore += 1;
+  for (const hint of enHints) if (text.includes(hint.trim()) || text.includes(hint)) enScore += 1;
+  return ptScore > enScore ? "pt" : "en";
+}
+
 module.exports = {
   clampScore,
+  detectLanguage,
   extractKeywords,
   normalizeText,
   tokenize,
