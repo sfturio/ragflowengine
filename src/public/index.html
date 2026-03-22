@@ -39,6 +39,16 @@
     </script>
     <style>
       body { font-family: 'Inter', sans-serif; }
+      :root {
+        --card-radius: 17px;
+        --card-radius-soft: 14px;
+        --card-surface: #FFFFFF;
+        --card-surface-soft: #FCFDFF;
+        --card-border: rgba(229, 231, 235, 0.55);
+        --card-shadow: 0 12px 32px rgba(27, 28, 29, 0.06), 0 2px 8px rgba(27, 28, 29, 0.04);
+        --card-shadow-soft: 0 8px 20px rgba(27, 28, 29, 0.045), 0 1px 2px rgba(27, 28, 29, 0.03);
+        --card-shadow-hover: 0 20px 42px rgba(27, 28, 29, 0.09), 0 6px 14px rgba(27, 28, 29, 0.06);
+      }
       .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
       }
@@ -62,17 +72,20 @@
         transition: stroke-dashoffset 0.4s ease;
       }
       .premium-card {
-        border-radius: 16px;
-        border: 1px solid #E5E7EB;
-        background: #FFFFFF;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        border-radius: var(--card-radius);
+        border: 1px solid var(--card-border);
+        background: var(--card-surface);
+        box-shadow: var(--card-shadow);
+      }
+      .premium-card-soft {
+        background: var(--card-surface-soft);
       }
       .premium-hover {
-        transition: transform 180ms ease, box-shadow 180ms ease;
+        transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
       }
       .premium-hover:hover {
         transform: translateY(-2px);
-        box-shadow: 0 14px 34px rgba(0,0,0,0.09);
+        box-shadow: var(--card-shadow-hover);
       }
     </style>
   </head>

@@ -284,7 +284,7 @@
   function ScoreCard(label, score) {
     const val = clamp(score);
     return `
-      <div class="premium-card p-6 space-y-3 bg-[#FCFDFF]">
+      <div class="premium-card premium-card-soft premium-hover p-7 space-y-3">
         <div class="flex items-center justify-between">
           <span class="text-sm font-semibold text-on-surface-variant">${escapeHtml(label)}</span>
           <span class="text-sm font-bold ${scoreColor(val)}">${val}%</span>
@@ -311,7 +311,7 @@
   function SkillInsightPanel(items) {
     const rows = (items || []).map((raw) => toSkillInsightItem(raw));
     return `
-      <div class="premium-card p-7 bg-[#FCFDFF]">
+      <div class="premium-card premium-card-soft premium-hover p-8">
         <div class="flex items-start justify-between gap-4 mb-4">
           <h3 class="text-xl font-bold">${escapeHtml(t('skillsViz'))}</h3>
           <span class="text-xl" title="Skills">${ICONS.skill}</span>
@@ -323,7 +323,7 @@
               ? rows
                   .map(
                     (item) =>
-                      `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:#FEFEFF; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+                      `<details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden" style="background:#FEFEFF; box-shadow: var(--card-shadow-soft);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap gap-3 items-center justify-between">
                           <div class="min-w-0 flex-1">
                             <p class="text-sm font-semibold truncate">${escapeHtml(item.skill)}</p>
@@ -436,7 +436,7 @@
     const mixed = ensurePriorityMix((items || []).map((item) => toNextAction(item)).slice(0, 8));
     const list = sortByPriority(mixed);
     return `
-      <div class="premium-card p-7 bg-[#FCFDFF]">
+      <div class="premium-card premium-card-soft premium-hover p-8">
         <div class="flex items-center gap-2 mb-5">
           <span class="text-xl">${ICONS.career}</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('strategic'))}</h3>
@@ -448,7 +448,7 @@
                   .map((item, idx) => {
                     const priority = item.priority || (idx === 0 ? 'high' : idx === 1 ? 'medium' : 'low');
                     const accent = priorityAccent(priority);
-                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${accent.tint}; border-left:4px solid ${accent.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden" style="background:${accent.tint}; border-left:4px solid ${accent.accent}; box-shadow: var(--card-shadow-soft);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
@@ -491,7 +491,7 @@
       const altTint = idx % 2 === 0 ? '#F8FAFF' : '#F2F7FF';
       const nodeColor = idx % 2 === 0 ? '#5B6CFF' : '#3B82F6';
       return `
-        <article class="relative pl-8 rounded-2xl border border-outline-variant/70 p-5 space-y-3 premium-hover" style="background:${altTint}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+        <article class="relative pl-8 rounded-2xl border border-outline-variant/60 p-6 space-y-3 premium-hover" style="background:${altTint}; box-shadow: var(--card-shadow-soft);">
           <div class="absolute left-3 top-0 bottom-0 w-px bg-[#D8E0F4]"></div>
           <div class="absolute left-[7px] top-6 w-3 h-3 rounded-full border-2 border-white" style="background:${nodeColor};"></div>
           <div class="flex items-center justify-between gap-3">
@@ -507,7 +507,7 @@
     });
 
     return `
-      <div class="premium-card p-7 bg-[#FCFDFF]">
+      <div class="premium-card premium-card-soft premium-hover p-8">
         <div class="flex items-center gap-2 mb-5">
           <span class="text-xl">${ICONS.study}</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('timeline'))}</h3>
