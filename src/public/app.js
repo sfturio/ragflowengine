@@ -65,19 +65,19 @@
     aboutTitle: 'Sobre o RAGFlow Engine',
     aboutSubtitle:
       'Uma explicação técnica de como o RAGFlow organiza contexto de carreira e transforma análise semântica em orientação prática.',
-    aboutWhatIsTitle: 'Project Context',
+    aboutWhatIsTitle: 'Contexto do Projeto',
     aboutWhatIsBody:
       'Candidatos em início de carreira recebem sinais dispersos entre vagas, fóruns e dicas informais. O projeto centraliza esse contexto para reduzir decisões baseadas em tentativa e erro.',
-    aboutHowTitle: 'Technical Approach',
+    aboutHowTitle: 'Abordagem Técnica',
     aboutHowBody:
       'O pipeline aplica embeddings em currículo, descrição da vaga e base curada de conteúdo, recupera evidências relevantes e gera recomendações ancoradas nesse contexto. A saída prioriza lacunas, próximos passos e hipóteses de evolução profissional.',
-    aboutLimitsTitle: 'Engineering Decisions',
+    aboutLimitsTitle: 'Decisões de Engenharia',
     aboutLimitsBody:
       'A solução separa indexação, recuperação e geração para equilibrar latência, manutenção e escala. O backend mantém componentes substituíveis para trocar modelos, ajustar ranking e evoluir sem reescrever o fluxo completo.',
-    aboutTechTitle: 'User Value',
+    aboutTechTitle: 'Valor para o Usuário',
     aboutTechBody:
       'Na prática, o usuário ganha direção: prioriza estudos com critério, ajusta o portfólio com mais velocidade e aplica para vagas com menos incerteza sobre o que realmente importa para cada alvo.',
-    aboutHumanTitle: 'Human Perspective',
+    aboutHumanTitle: 'Perspectiva Humana',
     aboutHumanBody:
       'Construir esse produto foi uma forma de tornar decisões de carreira menos confusas para quem está tentando crescer em um mercado com sinais nem sempre claros.'
   };
