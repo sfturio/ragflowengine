@@ -867,6 +867,16 @@
     document.documentElement.lang = 'pt-BR';
   }
 
+  function syncSideNavActiveState() {
+    document.querySelectorAll('[data-nav]').forEach((node) => {
+      const page = node.getAttribute('data-nav');
+      const isActive = page === state.page;
+      node.className = isActive
+        ? 'w-full text-left px-4 py-3 rounded-xl bg-surface-container-lowest text-primary shadow-sm font-semibold flex items-center gap-3'
+        : 'w-full text-left px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors font-semibold flex items-center gap-3';
+    });
+  }
+
   function bindEvents() {
     document.querySelectorAll('[data-nav]').forEach((node) => {
       node.addEventListener('click', () => {
@@ -990,6 +1000,7 @@
     if (state.page === 'history') app.innerHTML = HistoryPage();
     if (state.page === 'about') app.innerHTML = AboutPage();
     syncChromeText();
+    syncSideNavActiveState();
     renderSupportUi();
     bindEvents();
   }
