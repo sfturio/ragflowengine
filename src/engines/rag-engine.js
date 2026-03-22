@@ -1,4 +1,4 @@
-const { normalizeText, clampScore, extractKeywords } = require("../utils/text-utils");
+const { normalizeText, clampScore, detectLanguage, extractKeywords } = require("../utils/text-utils");
 
 const SKILL_PATTERNS = {
   "c#": [/(\b|^)c#(\b|$)/i, /\bcsharp\b/i],
@@ -223,8 +223,24 @@ function extractOverlapSkills(jobDescription = "", resumeText = "", targetRole =
   return overlap.slice(0, 8);
 }
 
-function chooseOutputLanguage() {
-  return "pt";
+function chooseOutputLanguage({ resumeText = "", jobDescription = "", targetRole = "" }) {
+  const detected = detectLanguage(resumeText, jobDescription, targetRole);
+  if (detected !== "en") return "pt";
+
+  const source = normalizeText(`${jobDescription} ${targetRole}`);
+  const englishSignals = [
+    "backend developer",
+    "backend engineer",
+    "requirements",
+    "responsibilities",
+    "nice to have",
+    "must have",
+    "full stack",
+    "cloud",
+    "microservices"
+  ];
+  const enHits = englishSignals.filter((signal) => source.includes(signal)).length;
+  return enHits >= 2 ? "en" : "pt";
 }
 
 function extractWeightedJobSkills(jobDescription = "", targetRole = "") {
@@ -618,7 +634,7 @@ function buildReport({
 }
 
 function analyzeResumeVsJob({ resumeText, jobDescription, targetRole }) {
-  const language = chooseOutputLanguage();
+  const language = chooseOutputLanguage({ resumeText, jobDescription, targetRole });
 
   const requiredSkills = extractWeightedJobSkills(jobDescription, targetRole);
   const overlapSkills = extractOverlapSkills(jobDescription, resumeText, targetRole);
