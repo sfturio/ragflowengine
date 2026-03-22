@@ -391,6 +391,13 @@
     return { tint: '#FFFBEB', accent: '#D97706', label: 'MEDIUM' };
   }
 
+  function priorityLabelPt(priority) {
+    const normalized = String(priority || '').toLowerCase();
+    if (normalized === 'high') return 'ALTA PRIORIDADE';
+    if (normalized === 'medium') return 'MÉDIA PRIORIDADE';
+    return 'BAIXA PRIORIDADE';
+  }
+
   function priorityRank(priority) {
     const normalized = String(priority || '').toLowerCase();
     if (normalized === 'high') return 0;
@@ -454,7 +461,10 @@
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
-                            <p class="text-xs text-on-surface-variant mt-1">${escapeHtml(item.category)}</p>
+                            <div class="mt-1 flex items-center gap-2 flex-wrap">
+                              <span class="mono-label uppercase px-2 py-1 rounded text-[10px] border" style="color:${accent.accent}; background:${accent.tint}; border-color:${accent.accent}33;">${priorityLabelPt(priority)}</span>
+                              <p class="text-xs text-on-surface-variant">${escapeHtml(item.category)}</p>
+                            </div>
                           </div>
                           <div class="flex items-center gap-2 shrink-0">
                             <span class="text-lg">${iconByCategory(item.category) || item.icon}</span>
