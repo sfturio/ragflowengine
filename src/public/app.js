@@ -278,7 +278,7 @@
   function ScoreCard(label, score) {
     const val = clamp(score);
     return `
-      <div class="bg-surface-container-low rounded-xl2 p-5 space-y-3">
+      <div class="premium-card p-6 space-y-3">
         <div class="flex items-center justify-between">
           <span class="text-sm font-semibold text-on-surface-variant">${escapeHtml(label)}</span>
           <span class="text-sm font-bold ${scoreColor(val)}">${val}%</span>
@@ -305,23 +305,23 @@
   function SkillInsightPanel(items) {
     const rows = (items || []).map((raw) => toSkillInsightItem(raw));
     return `
-      <div class="bg-surface-container-low rounded-2xl p-6">
-        <div class="flex items-start justify-between gap-4 mb-3">
+      <div class="premium-card p-7">
+        <div class="flex items-start justify-between gap-4 mb-4">
           <h3 class="text-xl font-bold">${escapeHtml(t('skillsViz'))}</h3>
           <span class="text-xl" title="Skills">🧠</span>
         </div>
-        <p class="text-sm text-on-surface-variant mb-5">${escapeHtml(t('skillsHelper'))}</p>
-        <div class="space-y-3">
+        <p class="text-sm text-on-surface-variant mb-6">${escapeHtml(t('skillsHelper'))}</p>
+        <div class="space-y-4">
           ${
             rows.length
               ? rows
                   .map(
                     (item) =>
-                      `<details open class="group rounded-xl border border-outline-variant/20 bg-surface-container-lowest overflow-hidden">
+                      `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 bg-surface-container-lowest overflow-hidden" style="box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap gap-3 items-center justify-between">
                           <div class="min-w-0 flex-1">
                             <p class="text-sm font-semibold truncate">${escapeHtml(item.skill)}</p>
-                            <div class="mt-2 h-2.5 bg-surface-container-highest/60 rounded-full overflow-hidden">
+                            <div class="mt-2 h-3 bg-[#E9EEF7] rounded-full overflow-hidden">
                               <div class="h-full ${barColor(item.score)} rounded-full" style="width:${item.score}%"></div>
                             </div>
                           </div>
@@ -331,7 +331,7 @@
                             <span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
                           </div>
                         </summary>
-                        <div class="px-4 pb-4 pt-2 space-y-3 border-t border-outline-variant/15 bg-surface-container-low/40">
+                        <div class="px-4 pb-5 pt-3 space-y-3 border-t border-outline-variant/70 bg-surface">
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Por que esta pontuacao:</span> ${escapeHtml(item.explanation)}</p>
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Onde foi detectada:</span> ${escapeHtml(item.evidenceSnippet || 'Sem trecho relevante detectado no curriculo.')}</p>
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Como melhorar:</span> ${escapeHtml(item.improveSuggestion)}</p>
@@ -375,21 +375,29 @@
     return '🚀';
   }
 
+  function categoryAccent(category) {
+    const normalized = String(category || '').toLowerCase();
+    if (normalized.includes('match')) return { tint: '#F4F7FF', accent: '#5B6CFF' };
+    if (normalized.includes('study')) return { tint: '#FFF8F1', accent: '#F59E0B' };
+    if (normalized.includes('skill')) return { tint: '#F4F7FF', accent: '#5B6CFF' };
+    return { tint: '#FFF4F4', accent: '#F04438' };
+  }
+
   function NextActionsPanel(items) {
     const list = (items || []).map((item) => toNextAction(item)).slice(0, 8);
     return `
-      <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm">
+      <div class="premium-card p-7">
         <div class="flex items-center gap-2 mb-5">
           <span class="text-xl">🚀</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('strategic'))}</h3>
         </div>
-        <div class="space-y-3">
+        <div class="space-y-4">
           ${
             list.length
               ? list
-                  .map(
-                    (item) =>
-                      `<details open class="group rounded-xl border border-outline-variant/20 bg-surface-container-low overflow-hidden">
+                  .map((item) => {
+                    const accent = categoryAccent(item.category);
+                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${accent.tint}; border-left:4px solid ${accent.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
@@ -400,13 +408,13 @@
                             <span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
                           </div>
                         </summary>
-                        <div class="px-4 pb-4 pt-2 space-y-3 border-t border-outline-variant/15 bg-surface-container-lowest">
+                        <div class="px-4 pb-5 pt-3 space-y-3 border-t border-outline-variant/70 bg-white/70">
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Por que aumenta o match:</span> ${escapeHtml(item.whyMatch)}</p>
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Como executar:</span> ${escapeHtml(item.execution)}</p>
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Ganho na percepcao do recrutador:</span> ${escapeHtml(item.recruiterGain)}</p>
                         </div>
-                      </details>`
-                  )
+                      </details>`;
+                  })
                   .join('')
               : `<p class="text-sm text-on-surface-variant">${escapeHtml(t('emptyHistory'))}</p>`
           }
@@ -427,10 +435,13 @@
   }
 
   function CareerRoadmap(items) {
-    const rows = (items || []).map((raw) => {
+    const rows = (items || []).map((raw, idx) => {
       const row = toRoadmapWeek(raw);
+      const altTint = idx % 2 === 0 ? '#FFFFFF' : '#F4F7FF';
       return `
-        <article class="rounded-xl border border-outline-variant/20 bg-surface-container-low p-4 space-y-3">
+        <article class="relative pl-8 rounded-2xl border border-outline-variant/70 p-5 space-y-3 premium-hover" style="background:${altTint}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+          <div class="absolute left-3 top-0 bottom-0 w-px bg-[#D8E0F4]"></div>
+          <div class="absolute left-[7px] top-6 w-3 h-3 rounded-full bg-primary border-2 border-white"></div>
           <div class="flex items-center justify-between gap-3">
             <h4 class="text-sm font-bold">Semana ${escapeHtml(row.week)} - ${escapeHtml(row.title)}</h4>
             <span class="text-base">📚</span>
@@ -444,12 +455,12 @@
     });
 
     return `
-      <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm">
+      <div class="premium-card p-7">
         <div class="flex items-center gap-2 mb-5">
           <span class="text-xl">📚</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('timeline'))}</h3>
         </div>
-        <div class="space-y-3">${rows.join('') || `<p class="text-sm text-on-surface-variant">-</p>`}</div>
+        <div class="space-y-4">${rows.join('') || `<p class="text-sm text-on-surface-variant">-</p>`}</div>
       </div>
     `;
   }

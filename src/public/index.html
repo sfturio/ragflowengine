@@ -13,22 +13,22 @@
         theme: {
           extend: {
             colors: {
-              'surface': '#f8f9fa',
-              'surface-container-low': '#f3f4f5',
-              'surface-container-lowest': '#ffffff',
-              'surface-container-high': '#e7e8e9',
-              'surface-container-highest': '#e1e3e4',
-              'on-surface': '#191c1d',
-              'on-surface-variant': '#464554',
-              'primary': '#4648d4',
-              'primary-container': '#6063ee',
-              'primary-fixed': '#e1e0ff',
-              'tertiary-container': '#b55d00',
-              'outline-variant': '#c7c4d7',
-              'error': '#ba1a1a'
+              'surface': '#F7F9FC',
+              'surface-container-low': '#F1F5FB',
+              'surface-container-lowest': '#FFFFFF',
+              'surface-container-high': '#EEF2F8',
+              'surface-container-highest': '#E5E7EB',
+              'on-surface': '#111827',
+              'on-surface-variant': '#6B7280',
+              'primary': '#5B6CFF',
+              'primary-container': '#4F5EF7',
+              'primary-fixed': '#F4F7FF',
+              'tertiary-container': '#F59E0B',
+              'outline-variant': '#E5E7EB',
+              'error': '#F04438'
             },
             boxShadow: {
-              ambient: '0px 12px 32px rgba(25, 28, 29, 0.04)'
+              ambient: '0 10px 30px rgba(0,0,0,0.06)'
             },
             borderRadius: {
               xl2: '1rem'
@@ -54,17 +54,30 @@
         transform: rotate(-90deg);
       }
       .progress-ring__track {
-        stroke: rgba(225, 227, 228, 0.5);
+        stroke: rgba(229, 231, 235, 0.9);
       }
       .progress-ring__value {
-        stroke: #4648d4;
+        stroke: #5B6CFF;
         stroke-linecap: round;
         transition: stroke-dashoffset 0.4s ease;
+      }
+      .premium-card {
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        background: #FFFFFF;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      }
+      .premium-hover {
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+      .premium-hover:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 34px rgba(0,0,0,0.09);
       }
     </style>
   </head>
   <body class="bg-surface text-on-surface">
-    <nav class="fixed top-0 left-0 right-0 z-50 h-16 px-6 bg-surface-container-lowest/80 glass-nav border-b border-outline-variant/20 flex items-center">
+    <nav class="fixed top-0 left-0 right-0 z-50 h-16 px-6 bg-surface-container-lowest/90 glass-nav border-b border-outline-variant/70 flex items-center">
       <div class="font-bold tracking-tight text-xl">AI Career Suite</div>
       <div class="hidden md:flex items-center gap-3 ml-8 text-sm font-semibold text-on-surface-variant">
         <span id="nav-other-text">Check our other app:</span>
@@ -76,7 +89,7 @@
     </nav>
 
     <div class="pt-16 min-h-screen flex">
-      <aside class="hidden lg:flex flex-col w-72 h-[calc(100vh-64px)] sticky top-16 bg-surface-container-low p-5 gap-6 editorial-grid">
+      <aside class="hidden lg:flex flex-col w-72 h-[calc(100vh-64px)] sticky top-16 bg-surface-container-low p-5 gap-6 editorial-grid border-r border-outline-variant/70">
         <div class="flex items-center gap-3 mb-8 px-2">
           <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-white">
             <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">psychology</span>
