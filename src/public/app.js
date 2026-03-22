@@ -64,28 +64,70 @@
     errorLoad: 'Não foi possível carregar os dados. Tente novamente.',
     aboutTitle: 'Sobre o RAGFlow Engine',
     aboutSubtitle:
-      'Veja como o RAGFlow analisa a compatibilidade entre seu currículo e oportunidades reais usando inteligência semântica.',
-    aboutWhatIsTitle: 'O que este app faz',
+      'Uma explicação técnica de como o RAGFlow organiza contexto de carreira e transforma análise semântica em orientação prática.',
+    aboutWhatIsTitle: 'Project Context',
     aboutWhatIsBody:
-      'O RAGFlow avalia o nível de aderência entre seu perfil profissional e a descrição de uma vaga, identificando competências alinhadas, lacunas relevantes e oportunidades de melhoria. O sistema transforma essa análise em recomendações práticas para fortalecer seu posicionamento no mercado.',
-    aboutHowTitle: 'Como a análise funciona',
+      'Candidatos em início de carreira recebem sinais dispersos entre vagas, fóruns e dicas informais. O projeto centraliza esse contexto para reduzir decisões baseadas em tentativa e erro.',
+    aboutHowTitle: 'Technical Approach',
     aboutHowBody:
-      'O RAGFlow entende o contexto do seu currículo e compara com o que a vaga realmente exige. Em vez de apenas buscar palavras-chave isoladas, o sistema interpreta experiências, tecnologias e responsabilidades para calcular um nível de compatibilidade mais realista e acionável.',
-    aboutLimitsTitle: 'Limites importantes',
+      'O pipeline aplica embeddings em currículo, descrição da vaga e base curada de conteúdo, recupera evidências relevantes e gera recomendações ancoradas nesse contexto. A saída prioriza lacunas, próximos passos e hipóteses de evolução profissional.',
+    aboutLimitsTitle: 'Engineering Decisions',
     aboutLimitsBody:
-      'Os resultados servem como orientação estratégica e não garantem aprovação em processos seletivos. Cada empresa possui critérios próprios, portanto o ideal é usar o feedback como base para ajustes contínuos no currículo e no plano de carreira.',
-    aboutTechTitle: 'Base técnica',
+      'A solução separa indexação, recuperação e geração para equilibrar latência, manutenção e escala. O backend mantém componentes substituíveis para trocar modelos, ajustar ranking e evoluir sem reescrever o fluxo completo.',
+    aboutTechTitle: 'User Value',
     aboutTechBody:
-      'Desenvolvido com arquitetura moderna em Node.js e pipeline de análise baseado em RAG (Retrieval-Augmented Generation), o sistema integra parsing de documentos, vetorização semântica e fallback resiliente de modelos de IA para manter consistência mesmo em cenários adversos.'
+      'Na prática, o usuário ganha direção: prioriza estudos com critério, ajusta o portfólio com mais velocidade e aplica para vagas com menos incerteza sobre o que realmente importa para cada alvo.',
+    aboutHumanTitle: 'Human Perspective',
+    aboutHumanBody:
+      'Construir esse produto foi uma forma de tornar decisões de carreira menos confusas para quem está tentando crescer em um mercado com sinais nem sempre claros.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
+  const THEME_KEY = 'ai-career-suite-theme';
   const ICONS = {
     match: '\u{1F3AF}',
     study: '\u{1F4DA}',
     skill: '\u{1F9E0}',
     career: '\u{1F680}'
   };
+
+  function getPreferredTheme() {
+    const saved = window.localStorage.getItem(THEME_KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function updateThemeToggle(theme) {
+    const toggleText = document.getElementById('theme-toggle-text');
+    if (toggleText) toggleText.textContent = theme === 'dark' ? 'Dark' : 'Light';
+
+    const toggleIcon = document.getElementById('theme-toggle-icon');
+    if (toggleIcon) toggleIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+
+    const toggleButton = document.getElementById('theme-toggle');
+    if (toggleButton) {
+      toggleButton.setAttribute('aria-label', theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro');
+    }
+  }
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    window.localStorage.setItem(THEME_KEY, theme);
+    updateThemeToggle(theme);
+  }
+
+  function bindThemeToggle() {
+    const toggleButton = document.getElementById('theme-toggle');
+    if (!toggleButton || toggleButton.dataset.bound === '1') return;
+
+    toggleButton.dataset.bound = '1';
+    toggleButton.addEventListener('click', () => {
+      const nextTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+  }
 
   function SidebarSupportSection() {
     return `
@@ -798,6 +840,10 @@
             <h3 class="text-xl font-bold">${escapeHtml(t('aboutTechTitle'))}</h3>
             <p class="text-on-surface-variant leading-relaxed">${escapeHtml(t('aboutTechBody'))}</p>
           </article>
+          <article class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm space-y-3">
+            <h3 class="text-xl font-bold">${escapeHtml(t('aboutHumanTitle'))}</h3>
+            <p class="text-on-surface-variant leading-relaxed">${escapeHtml(t('aboutHumanBody'))}</p>
+          </article>
         </div>
       </section>
     `;
@@ -817,6 +863,7 @@
     setText('side-nav-about', t('navAbout'));
     setText('new-analysis', t('newAnalysis'));
 
+    updateThemeToggle(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     document.documentElement.lang = 'pt-BR';
   }
 
@@ -933,6 +980,8 @@
       newAnalysis.dataset.bound = '1';
       newAnalysis.addEventListener('click', () => setPage('match'));
     }
+
+    bindThemeToggle();
   }
 
   function render() {
@@ -945,6 +994,7 @@
     bindEvents();
   }
 
+  applyTheme(getPreferredTheme());
   render();
 })();
 

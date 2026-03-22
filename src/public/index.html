@@ -56,6 +56,34 @@
         --card-shadow-soft: 0 8px 20px rgba(27, 28, 29, 0.045), 0 1px 2px rgba(27, 28, 29, 0.03);
         --card-shadow-hover: 0 20px 42px rgba(27, 28, 29, 0.09), 0 6px 14px rgba(27, 28, 29, 0.06);
       }
+      html.dark {
+        color-scheme: dark;
+        --card-surface: #0f172a;
+        --card-surface-soft: #111b31;
+        --card-border: rgba(148, 163, 184, 0.24);
+        --card-shadow: 0 16px 36px rgba(2, 6, 23, 0.5), 0 2px 10px rgba(2, 6, 23, 0.35);
+        --card-shadow-soft: 0 10px 24px rgba(2, 6, 23, 0.42), 0 2px 6px rgba(2, 6, 23, 0.3);
+        --card-shadow-hover: 0 24px 48px rgba(2, 6, 23, 0.58), 0 8px 20px rgba(2, 6, 23, 0.44);
+      }
+      html.dark body {
+        background:
+          radial-gradient(1300px 520px at 8% -10%, rgba(91, 108, 255, 0.23), transparent 64%),
+          radial-gradient(900px 360px at 92% -6%, rgba(16, 185, 129, 0.17), transparent 58%),
+          #020617;
+        color: #e2e8f0;
+      }
+      html.dark .bg-surface { background-color: #020617 !important; }
+      html.dark .bg-surface-container-low { background-color: #0b1325 !important; }
+      html.dark .bg-surface-container-lowest { background-color: #0f172a !important; }
+      html.dark .bg-surface-container-high { background-color: #1e293b !important; }
+      html.dark .bg-surface-container-highest { background-color: #334155 !important; }
+      html.dark .text-on-surface { color: #e2e8f0 !important; }
+      html.dark .text-on-surface-variant { color: #94a3b8 !important; }
+      html.dark [class*="border-outline-variant"] { border-color: rgba(148, 163, 184, 0.24) !important; }
+      html.dark .shadow-sm { box-shadow: 0 10px 24px rgba(2, 6, 23, 0.34) !important; }
+      html.dark .editorial-grid {
+        background-image: radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.12) 1px, transparent 0);
+      }
       .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
       }
@@ -99,6 +127,10 @@
         transform: translateY(-2px);
         box-shadow: var(--card-shadow-hover);
       }
+      html.dark .glass-nav {
+        background-color: rgba(10, 16, 34, 0.88) !important;
+        border-color: rgba(148, 163, 184, 0.24) !important;
+      }
     </style>
   </head>
   <body class="bg-surface text-on-surface">
@@ -109,6 +141,10 @@
         <a id="nav-other-link" href="https://atsflowengine.onrender.com/" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">ATSFlow Engine</a>
       </div>
       <div class="ml-auto flex items-center gap-3">
+        <button id="theme-toggle" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-low text-xs font-semibold hover:bg-surface-container-high transition-colors" aria-label="Alternar tema">
+          <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
+          <span id="theme-toggle-text">Light</span>
+        </button>
         <span class="material-symbols-outlined text-on-surface-variant">auto_awesome</span>
       </div>
     </nav>
