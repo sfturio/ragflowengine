@@ -9,7 +9,8 @@
     history: [],
     helpOpen: false,
     feedbackOpen: false,
-    feedbackText: ''
+    feedbackText: '',
+    selectedPdfName: ''
   };
 
   const UI_TEXT = {
@@ -264,7 +265,7 @@
             <span class="material-symbols-outlined text-3xl">upload_file</span>
           </div>
           <p class="text-sm text-on-surface-variant leading-relaxed max-w-sm">${escapeHtml(t('uploadBody'))}</p>
-          <p id="resume-upload-status" class="mt-4 text-xs font-semibold text-on-surface-variant">${escapeHtml(t('uploadNoFile'))}</p>
+          <p id="resume-upload-status" class="mt-4 text-xs font-semibold text-on-surface-variant">${escapeHtml(state.selectedPdfName ? `${t('uploadSelectedPrefix')} ${state.selectedPdfName}` : t('uploadNoFile'))}</p>
         </div>
       </label>
     `;
@@ -275,7 +276,9 @@
     const status = document.getElementById('resume-upload-status');
     if (!zone || !status) return;
 
-    if (!file) {
+    if (file && file.name) state.selectedPdfName = file.name;
+
+    if (!file && !state.selectedPdfName) {
       zone.classList.remove('border-primary', 'bg-primary-fixed/30');
       zone.classList.add('border-outline-variant/40');
       status.textContent = t('uploadNoFile');
@@ -284,7 +287,7 @@
 
     zone.classList.remove('border-outline-variant/40');
     zone.classList.add('border-primary', 'bg-primary-fixed/30');
-    status.textContent = `${t('uploadSelectedPrefix')} ${file.name}`;
+    status.textContent = `${t('uploadSelectedPrefix')} ${state.selectedPdfName}`;
   }
 
   function getSkillLevelLabel(level) {
@@ -353,24 +356,24 @@
   function SkillInsightPanel(items) {
     const rows = (items || []).map((raw) => toSkillInsightItem(raw));
     return `
-      <div class="premium-card premium-card-soft premium-hover p-8">
+      <div class="premium-card premium-card-soft premium-hover p-6">
         <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Inteligência de competências</p>
-        <div class="flex items-start justify-between gap-4 mb-4">
+        <div class="flex items-start justify-between gap-4 mb-3">
           <h3 class="text-xl font-bold">${escapeHtml(t('skillsViz'))}</h3>
           <span class="text-xl" title="Skills">${ICONS.skill}</span>
         </div>
-        <p class="text-sm text-on-surface-variant mb-6">${escapeHtml(t('skillsHelper'))}</p>
-        <div class="space-y-4">
+        <p class="text-sm text-on-surface-variant mb-4">${escapeHtml(t('skillsHelper'))}</p>
+        <div class="space-y-3">
           ${
             rows.length
               ? rows
                   .map(
                     (item) =>
                       `<details open class="group premium-hover rounded-2xl border border-outline-variant/60 overflow-hidden bg-surface-container-lowest dark:bg-slate-900/70" style="box-shadow: var(--card-shadow-soft);">
-                        <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap gap-3 items-center justify-between">
+                        <summary class="list-none cursor-pointer px-4 py-3.5 flex flex-wrap gap-3 items-center justify-between">
                           <div class="min-w-0 flex-1">
                             <p class="text-sm font-semibold truncate text-on-surface dark:text-slate-100">${escapeHtml(item.skill)}</p>
-                            <div class="mt-2 h-3 bg-[#E9EEF7] dark:bg-slate-700/70 rounded-full overflow-hidden">
+                            <div class="mt-2 h-2.5 bg-[#E9EEF7] dark:bg-slate-700/70 rounded-full overflow-hidden">
                               <div class="h-full ${barColor(item.score)} rounded-full" style="width:${item.score}%; transition: width 320ms ease"></div>
                             </div>
                           </div>
@@ -380,10 +383,10 @@
                             <span class="material-symbols-outlined text-on-surface-variant dark:text-slate-300 transition-transform group-open:rotate-180">expand_more</span>
                           </div>
                         </summary>
-                        <div class="px-4 pb-5 pt-3 space-y-3 border-t border-outline-variant/70 bg-surface-container-low/70 dark:bg-slate-900/45">
-                          <p class="text-sm leading-relaxed text-on-surface dark:text-slate-200"><span class="font-semibold">Por que esta pontuacao:</span> ${escapeHtml(item.explanation)}</p>
-                          <p class="text-sm leading-relaxed text-on-surface dark:text-slate-200"><span class="font-semibold">Onde foi detectada:</span> ${escapeHtml(item.evidenceSnippet || 'Sem trecho relevante detectado no curriculo.')}</p>
-                          <p class="text-sm leading-relaxed text-on-surface dark:text-slate-200"><span class="font-semibold">Como melhorar:</span> ${escapeHtml(item.improveSuggestion)}</p>
+                        <div class="px-4 pb-4 pt-2.5 space-y-2.5 border-t border-outline-variant/70 bg-surface-container-low/70 dark:bg-slate-900/45">
+                          <p class="text-sm leading-snug text-on-surface dark:text-slate-200"><span class="font-semibold">Por que esta pontuacao:</span> ${escapeHtml(item.explanation)}</p>
+                          <p class="text-sm leading-snug text-on-surface dark:text-slate-200"><span class="font-semibold">Onde foi detectada:</span> ${escapeHtml(item.evidenceSnippet || 'Sem trecho relevante detectado no curriculo.')}</p>
+                          <p class="text-sm leading-snug text-on-surface dark:text-slate-200"><span class="font-semibold">Como melhorar:</span> ${escapeHtml(item.improveSuggestion)}</p>
                         </div>
                       </details>`
                   )
@@ -628,14 +631,15 @@
   }
 
   async function submitAnalysis(form) {
-    state.loading = true;
-    state.error = '';
-    render();
-
     const resumeText = form.querySelector('[name="resume_text"]').value.trim();
     const jobDescription = form.querySelector('[name="job_description"]').value.trim();
     const targetRole = form.querySelector('[name="target_role"]').value.trim();
     const file = form.querySelector('[name="resume_pdf"]').files[0];
+    state.selectedPdfName = file && file.name ? file.name : '';
+
+    state.loading = true;
+    state.error = '';
+    render();
 
     try {
       let response;
