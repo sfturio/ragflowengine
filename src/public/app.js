@@ -317,7 +317,7 @@
               ? rows
                   .map(
                     (item) =>
-                      `<details class="group rounded-xl border border-outline-variant/20 bg-surface-container-lowest overflow-hidden">
+                      `<details open class="group rounded-xl border border-outline-variant/20 bg-surface-container-lowest overflow-hidden">
                         <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap gap-3 items-center justify-between">
                           <div class="min-w-0 flex-1">
                             <p class="text-sm font-semibold truncate">${escapeHtml(item.skill)}</p>
@@ -389,7 +389,7 @@
               ? list
                   .map(
                     (item) =>
-                      `<details class="group rounded-xl border border-outline-variant/20 bg-surface-container-low overflow-hidden">
+                      `<details open class="group rounded-xl border border-outline-variant/20 bg-surface-container-low overflow-hidden">
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
