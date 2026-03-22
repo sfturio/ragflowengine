@@ -176,13 +176,13 @@
 
   function scoreColor(score) {
     if (score >= 75) return 'text-[#15803D]';
-    if (score >= 50) return 'text-[#B45309]';
+    if (score >= 50) return 'text-[#92400E]';
     return 'text-error';
   }
 
   function barColor(score) {
     if (score >= 75) return 'bg-[#22C55E]';
-    if (score >= 50) return 'bg-[#F59E0B]';
+    if (score >= 50) return 'bg-[#D97706]';
     return 'bg-error';
   }
 
@@ -312,6 +312,7 @@
     const rows = (items || []).map((raw) => toSkillInsightItem(raw));
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Inteligência de competências</p>
         <div class="flex items-start justify-between gap-4 mb-4">
           <h3 class="text-xl font-bold">${escapeHtml(t('skillsViz'))}</h3>
           <span class="text-xl" title="Skills">${ICONS.skill}</span>
@@ -385,9 +386,9 @@
 
   function priorityAccent(priority) {
     const normalized = String(priority || ' ').toLowerCase();
-    if (normalized === 'high') return { tint: '#FFF4F4', accent: '#F04438', label: 'HIGH' };
-    if (normalized === 'low') return { tint: '#F4F7FF', accent: '#5B6CFF', label: 'LOW' };
-    return { tint: '#FFF8F1', accent: '#F59E0B', label: 'MEDIUM' };
+    if (normalized === 'high') return { tint: '#FFF1F2', accent: '#E11D48', label: 'HIGH' };
+    if (normalized === 'low') return { tint: '#EFF6FF', accent: '#2563EB', label: 'LOW' };
+    return { tint: '#FFFBEB', accent: '#D97706', label: 'MEDIUM' };
   }
 
   function priorityRank(priority) {
@@ -437,6 +438,7 @@
     const list = sortByPriority(mixed);
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Ações estratégicas</p>
         <div class="flex items-center gap-2 mb-5">
           <span class="text-xl">${ICONS.career}</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('strategic'))}</h3>
@@ -488,8 +490,8 @@
   function CareerRoadmap(items) {
     const rows = (items || []).map((raw, idx) => {
       const row = toRoadmapWeek(raw);
-      const altTint = idx % 2 === 0 ? '#F8FAFF' : '#F2F7FF';
-      const nodeColor = idx % 2 === 0 ? '#5B6CFF' : '#3B82F6';
+      const altTint = idx % 2 === 0 ? '#EFF6FF' : '#FFFBEB';
+      const nodeColor = idx % 2 === 0 ? '#2563EB' : '#D97706';
       return `
         <article class="relative pl-8 rounded-2xl border border-outline-variant/60 p-6 space-y-3 premium-hover" style="background:${altTint}; box-shadow: var(--card-shadow-soft);">
           <div class="absolute left-3 top-0 bottom-0 w-px bg-[#D8E0F4]"></div>
@@ -508,6 +510,7 @@
 
     return `
       <div class="premium-card premium-card-soft premium-hover p-8">
+        <p class="mono-label uppercase text-on-surface-variant/70 mb-2">Roadmap guiado</p>
         <div class="flex items-center gap-2 mb-5">
           <span class="text-xl">${ICONS.study}</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('timeline'))}</h3>
