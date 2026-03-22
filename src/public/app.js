@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const app = document.getElementById('app');
 
   const state = {
@@ -15,68 +15,68 @@
   const UI_TEXT = {
     navOther: 'Confira nosso outro app:',
     navOtherLink: 'ATSFlow Engine',
-    navMatch: 'Análise de Match',
+    navMatch: 'AnÃ¡lise de Match',
     navResult: 'Resultado de Carreira',
-    navHistory: 'Histórico',
+    navHistory: 'HistÃ³rico',
     navAbout: 'Sobre',
-    newAnalysis: 'Nova Análise',
-    heroBadge: 'RAGFlow Análise de Match',
-    heroTitle: 'Entenda como seu currículo combina com vagas reais',
-    heroSub: 'Análise semântica com transparência determinística e orientações práticas.',
-    uploadTitle: 'Contexto do Currículo',
+    newAnalysis: 'Nova AnÃ¡lise',
+    heroBadge: 'RAGFlow AnÃ¡lise de Match',
+    heroTitle: 'Entenda como seu currÃ­culo combina com vagas reais',
+    heroSub: 'AnÃ¡lise semÃ¢ntica com transparÃªncia determinÃ­stica e orientaÃ§Ãµes prÃ¡ticas.',
+    uploadTitle: 'Contexto do CurrÃ­culo',
     uploadBody: 'Clique para enviar ou arraste PDF (ate 8MB)',
     uploadNoFile: 'Nenhum arquivo selecionado ainda.',
     uploadSelectedPrefix: 'PDF selecionado:',
-    resumeLabel: 'Texto do Currículo',
-    resumePlaceholder: 'Se preferir, cole o texto do currículo aqui. Se você já enviou PDF, pode deixar em branco.',
-    jobLabel: 'Descrição da Vaga',
-    jobPlaceholder: 'Cole aqui a descrição da vaga-alvo...',
-    strategy: 'Parâmetros de Estratégia',
+    resumeLabel: 'Texto do CurrÃ­culo',
+    resumePlaceholder: 'Se preferir, cole o texto do currÃ­culo aqui. Se vocÃª jÃ¡ enviou PDF, pode deixar em branco.',
+    jobLabel: 'DescriÃ§Ã£o da Vaga',
+    jobPlaceholder: 'Cole aqui a descriÃ§Ã£o da vaga-alvo...',
+    strategy: 'ParÃ¢metros de EstratÃ©gia',
     targetRole: 'Cargo Alvo',
     targetRolePlaceholder: 'ex.: Engenheiro de Software Senior',
-    step1: 'Currículo carregado',
+    step1: 'CurrÃ­culo carregado',
     step2: 'Contexto da vaga mapeado',
-    step3: 'Análise semântica',
-    run: 'Rodar Análise de Carreira',
+    step3: 'AnÃ¡lise semÃ¢ntica',
+    run: 'Rodar AnÃ¡lise de Carreira',
     running: 'Analisando...',
-    previewTitle: 'Prévia da Análise',
+    previewTitle: 'PrÃ©via da AnÃ¡lise',
     previewText: 'Match de skills, evidencias acionaveis, roadmap personalizado e proximos passos em um fluxo unico.',
     noResult: 'Sem resultado ainda',
-    noResultSub: 'Rode uma análise na tela de Match primeiro.',
-    backToMatch: 'Ir para Análise de Match',
+    noResultSub: 'Rode uma anÃ¡lise na tela de Match primeiro.',
+    backToMatch: 'Ir para AnÃ¡lise de Match',
     resultBadge: 'Resultado de Carreira',
-    resultTitle: 'Avaliação de Match',
+    resultTitle: 'AvaliaÃ§Ã£o de Match',
     weightedScore: 'Match Ponderado',
     insight: 'Insight de IA',
-    download: 'Baixar Relatório',
+    download: 'Baixar RelatÃ³rio',
     skillsViz: 'Insights de Competencias',
     skillsHelper: 'Veja como suas competencias se conectam com a vaga analisada.',
     gaps: 'Skills em Gap',
     noGaps: 'Nenhum gap relevante encontrado.',
     timeline: 'Roadmap de Carreira Personalizado',
     strategic: 'Proximos passos para aumentar seu Match',
-    historyTitle: 'Histórico',
-    historySub: 'Linha do tempo das análises anteriores.',
+    historyTitle: 'HistÃ³rico',
+    historySub: 'Linha do tempo das anÃ¡lises anteriores.',
     open: 'Abrir',
-    emptyHistory: 'Nenhuma análise ainda.',
+    emptyHistory: 'Nenhuma anÃ¡lise ainda.',
     model: 'Modelo',
     provider: 'Provedor',
-    errorLoad: 'Não foi possível carregar os dados. Tente novamente.',
+    errorLoad: 'NÃ£o foi possÃ­vel carregar os dados. Tente novamente.',
     aboutTitle: 'Sobre o RAGFlow Engine',
     aboutSubtitle:
-      'Veja como o RAGFlow analisa a compatibilidade entre seu currículo e oportunidades reais usando inteligência semântica.',
+      'Veja como o RAGFlow analisa a compatibilidade entre seu currÃ­culo e oportunidades reais usando inteligÃªncia semÃ¢ntica.',
     aboutWhatIsTitle: 'O que este app faz',
     aboutWhatIsBody:
-      'O RAGFlow avalia o nível de aderência entre seu perfil profissional e a descrição de uma vaga, identificando competências alinhadas, lacunas relevantes e oportunidades de melhoria. O sistema transforma essa análise em recomendações práticas para fortalecer seu posicionamento no mercado.',
-    aboutHowTitle: 'Como a análise funciona',
+      'O RAGFlow avalia o nÃ­vel de aderÃªncia entre seu perfil profissional e a descriÃ§Ã£o de uma vaga, identificando competÃªncias alinhadas, lacunas relevantes e oportunidades de melhoria. O sistema transforma essa anÃ¡lise em recomendaÃ§Ãµes prÃ¡ticas para fortalecer seu posicionamento no mercado.',
+    aboutHowTitle: 'Como a anÃ¡lise funciona',
     aboutHowBody:
-      'O RAGFlow entende o contexto do seu currículo e compara com o que a vaga realmente exige. Em vez de apenas buscar palavras-chave isoladas, o sistema interpreta experiências, tecnologias e responsabilidades para calcular um nível de compatibilidade mais realista e acionável.',
+      'O RAGFlow entende o contexto do seu currÃ­culo e compara com o que a vaga realmente exige. Em vez de apenas buscar palavras-chave isoladas, o sistema interpreta experiÃªncias, tecnologias e responsabilidades para calcular um nÃ­vel de compatibilidade mais realista e acionÃ¡vel.',
     aboutLimitsTitle: 'Limites importantes',
     aboutLimitsBody:
-      'Os resultados servem como orientação estratégica e não garantem aprovação em processos seletivos. Cada empresa possui critérios próprios, portanto o ideal é usar o feedback como base para ajustes contínuos no currículo e no plano de carreira.',
-    aboutTechTitle: 'Base técnica',
+      'Os resultados servem como orientaÃ§Ã£o estratÃ©gica e nÃ£o garantem aprovaÃ§Ã£o em processos seletivos. Cada empresa possui critÃ©rios prÃ³prios, portanto o ideal Ã© usar o feedback como base para ajustes contÃ­nuos no currÃ­culo e no plano de carreira.',
+    aboutTechTitle: 'Base tÃ©cnica',
     aboutTechBody:
-      'Desenvolvido com arquitetura moderna em Node.js e pipeline de análise baseado em RAG (Retrieval-Augmented Generation), o sistema integra parsing de documentos, vetorização semântica e fallback resiliente de modelos de IA para manter consistência mesmo em cenários adversos.'
+      'Desenvolvido com arquitetura moderna em Node.js e pipeline de anÃ¡lise baseado em RAG (Retrieval-Augmented Generation), o sistema integra parsing de documentos, vetorizaÃ§Ã£o semÃ¢ntica e fallback resiliente de modelos de IA para manter consistÃªncia mesmo em cenÃ¡rios adversos.'
   };
 
   const t = (key) => UI_TEXT[key] || key;
@@ -104,32 +104,32 @@
           </div>
 
           <ol class="space-y-3 text-[15px] leading-relaxed list-decimal pl-5 mb-10">
-            <li>Envie seu currículo em PDF ou cole o texto.</li>
-            <li>Adicione a descrição da vaga que você quer atingir.</li>
+            <li>Envie seu currÃ­culo em PDF ou cole o texto.</li>
+            <li>Adicione a descriÃ§Ã£o da vaga que vocÃª quer atingir.</li>
             <li>Opcionalmente, defina seu cargo alvo.</li>
-            <li>Rode a análise.</li>
-            <li>Revise os scores, insights e sugestões de melhoria.</li>
-            <li>Baixe ou revise sua análise depois no Histórico.</li>
+            <li>Rode a anÃ¡lise.</li>
+            <li>Revise os scores, insights e sugestÃµes de melhoria.</li>
+            <li>Baixe ou revise sua anÃ¡lise depois no HistÃ³rico.</li>
           </ol>
 
           <section class="mb-10">
             <h3 class="text-xl font-bold mb-4">Perguntas Frequentes</h3>
             <div class="space-y-4 text-[15px] leading-relaxed">
-              <div><p class="font-semibold">Esta análise é 100% precisa?</p><p class="text-on-surface-variant">Não. Esta ferramenta combina análise determinística e assistência de IA para orientar, sem garantias absolutas.</p></div>
-              <div><p class="font-semibold">Você armazena meu currículo?</p><p class="text-on-surface-variant">As análises podem ser armazenadas localmente para melhorar sua experiência e manter histórico.</p></div>
-              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-on-surface-variant">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre são recomendados.</p></div>
-              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-on-surface-variant">Cada plataforma usa heurísticas e modelos diferentes. Este app prioriza clareza, transparência e insights acionáveis.</p></div>
-              <div><p class="font-semibold">Qual a diferença entre ATSFlow e RAGFlow?</p><p class="text-on-surface-variant">ATSFlow foca em otimização técnica para ATS. RAGFlow foca em match semântico e estratégia de carreira.</p></div>
+              <div><p class="font-semibold">Esta anÃ¡lise Ã© 100% precisa?</p><p class="text-on-surface-variant">NÃ£o. Esta ferramenta combina anÃ¡lise determinÃ­stica e assistÃªncia de IA para orientar, sem garantias absolutas.</p></div>
+              <div><p class="font-semibold">VocÃª armazena meu currÃ­culo?</p><p class="text-on-surface-variant">As anÃ¡lises podem ser armazenadas localmente para melhorar sua experiÃªncia e manter histÃ³rico.</p></div>
+              <div><p class="font-semibold">Posso usar isso em candidaturas reais?</p><p class="text-on-surface-variant">Sim. A ferramenta ajuda a otimizar estrutura e posicionamento, mas ajustes finais sempre sÃ£o recomendados.</p></div>
+              <div><p class="font-semibold">Por que os scores diferem de outras ferramentas?</p><p class="text-on-surface-variant">Cada plataforma usa heurÃ­sticas e modelos diferentes. Este app prioriza clareza, transparÃªncia e insights acionÃ¡veis.</p></div>
+              <div><p class="font-semibold">Qual a diferenÃ§a entre ATSFlow e RAGFlow?</p><p class="text-on-surface-variant">ATSFlow foca em otimizaÃ§Ã£o tÃ©cnica para ATS. RAGFlow foca em match semÃ¢ntico e estratÃ©gia de carreira.</p></div>
             </div>
           </section>
 
           <section>
             <h3 class="text-xl font-bold mb-4">Dicas para melhores resultados</h3>
             <ul class="space-y-2 text-[15px] leading-relaxed list-disc pl-5 text-on-surface-variant">
-              <li>Use descrições de vaga completas.</li>
-              <li>Evite currículos extremamente curtos.</li>
-              <li>Foque em conquistas mensuráveis.</li>
-              <li>Mantenha a formatação simples e amigável para ATS.</li>
+              <li>Use descriÃ§Ãµes de vaga completas.</li>
+              <li>Evite currÃ­culos extremamente curtos.</li>
+              <li>Foque em conquistas mensurÃ¡veis.</li>
+              <li>Mantenha a formataÃ§Ã£o simples e amigÃ¡vel para ATS.</li>
             </ul>
           </section>
         </div>
@@ -145,7 +145,7 @@
             <h2 class="text-2xl font-bold tracking-tight">Feedback</h2>
             <button id="close-feedback" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-surface-container-low hover:bg-surface-container-high">Fechar</button>
           </div>
-          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestão ou reporte um problema</label>
+          <label for="feedback-input" class="block text-sm font-semibold mb-3">Compartilhe sua sugestÃ£o ou reporte um problema</label>
           <textarea id="feedback-input" class="w-full h-44 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/15 resize-none" placeholder="Digite seu feedback aqui...">${state.feedbackText || ''}</textarea>
           <div class="mt-5 flex justify-end">
             <button id="send-feedback" class="px-5 py-2.5 rounded-xl text-white font-semibold bg-primary hover:bg-primary-container transition-colors">Enviar Feedback</button>
@@ -169,14 +169,14 @@
   }
 
   function scoreColor(score) {
-    if (score >= 80) return 'text-primary';
-    if (score >= 60) return 'text-tertiary-container';
+    if (score >= 75) return 'text-[#15803D]';
+    if (score >= 50) return 'text-[#B45309]';
     return 'text-error';
   }
 
   function barColor(score) {
-    if (score >= 80) return 'bg-primary';
-    if (score >= 60) return 'bg-tertiary-container';
+    if (score >= 75) return 'bg-[#22C55E]';
+    if (score >= 50) return 'bg-[#F59E0B]';
     return 'bg-error';
   }
 
@@ -197,7 +197,7 @@
       .replace(/:$/, '')
       .trim();
     if (!clean) return '';
-    if (/^s[ií]ntese$/i.test(clean)) return '';
+    if (/^s[iÃ­]ntese$/i.test(clean)) return '';
     if (/^resumo$/i.test(clean)) return '';
     return clean;
   }
@@ -308,7 +308,7 @@
       <div class="premium-card p-7">
         <div class="flex items-start justify-between gap-4 mb-4">
           <h3 class="text-xl font-bold">${escapeHtml(t('skillsViz'))}</h3>
-          <span class="text-xl" title="Skills">🧠</span>
+          <span class="text-xl" title="Skills">ðŸ§ </span>
         </div>
         <p class="text-sm text-on-surface-variant mb-6">${escapeHtml(t('skillsHelper'))}</p>
         <div class="space-y-4">
@@ -349,7 +349,7 @@
   function toNextAction(item) {
     if (typeof item === 'string') {
       return {
-        icon: '??',
+        icon: 'rocket_launch',
         priority: 'medium',
         category: 'Career',
         title: item,
@@ -359,7 +359,7 @@
       };
     }
     return {
-      icon: item.icon || '??',
+      icon: item.icon || 'rocket_launch',
       priority: item.priority || 'medium',
       category: item.category || 'Career',
       title: item.title || 'Acao recomendada',
@@ -371,10 +371,10 @@
 
   function iconByCategory(category) {
     const normalized = String(category || '').toLowerCase();
-    if (normalized.includes('match')) return '🎯';
-    if (normalized.includes('study')) return '📚';
-    if (normalized.includes('skill')) return '🧠';
-    return '🚀';
+    if (normalized.includes('match')) return 'target';
+    if (normalized.includes('study')) return 'menu_book';
+    if (normalized.includes('skill')) return 'psychology';
+    return 'rocket_launch';
   }
 
   function priorityAccent(priority) {
@@ -389,7 +389,7 @@
     return `
       <div class="premium-card p-7">
         <div class="flex items-center gap-2 mb-5">
-          <span class="text-xl">🚀</span>
+          <span class="text-xl">ðŸš€</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('strategic'))}</h3>
         </div>
         <div class="space-y-4">
@@ -399,18 +399,18 @@
                   .map((item, idx) => {
                     const priority = item.priority || (idx === 0 ? 'high' : idx === 1 ? 'medium' : 'low');
                     const accent = priorityAccent(priority);
-                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:${accent.tint}; border-left:4px solid ${accent.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:#FFFFFF; border-left:4px solid ${accent.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
-                            <p class="text-xs text-on-surface-variant mt-1">${escapeHtml(item.category)} � ${accent.label}</p>
+                            <p class="text-xs text-on-surface-variant mt-1">${escapeHtml(item.category)} • ${accent.label}</p>
                           </div>
                           <div class="flex items-center gap-2 shrink-0">
-                            <span class="text-lg">${iconByCategory(item.category) || item.icon}</span>
+                            <span class="material-symbols-outlined text-[18px]" style="color:${accent.accent};">${iconByCategory(item.category) || item.icon}</span>
                             <span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
                           </div>
                         </summary>
-                        <div class="px-4 pb-5 pt-3 space-y-3 border-t border-outline-variant/70 bg-white/70">
+                        <div class="px-4 pb-5 pt-3 space-y-3 border-t border-outline-variant/70 bg-surface">
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Por que aumenta o match:</span> ${escapeHtml(item.whyMatch)}</p>
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Como executar:</span> ${escapeHtml(item.execution)}</p>
                           <p class="text-sm leading-relaxed"><span class="font-semibold">Ganho na percepcao do recrutador:</span> ${escapeHtml(item.recruiterGain)}</p>
@@ -439,7 +439,7 @@
   function CareerRoadmap(items) {
     const rows = (items || []).map((raw, idx) => {
       const row = toRoadmapWeek(raw);
-      const altTint = idx % 2 === 0 ? '#FFFFFF' : '#F4F7FF';
+      const altTint = '#FFFFFF';
       const nodeColor = idx % 3 === 0 ? '#F04438' : idx % 3 === 1 ? '#F59E0B' : '#5B6CFF';
       return `
         <article class="relative pl-8 rounded-2xl border border-outline-variant/70 p-5 space-y-3 premium-hover" style="background:${altTint}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
@@ -447,7 +447,7 @@
           <div class="absolute left-[7px] top-6 w-3 h-3 rounded-full border-2 border-white" style="background:${nodeColor};"></div>
           <div class="flex items-center justify-between gap-3">
             <h4 class="text-sm font-bold">Semana ${escapeHtml(row.week)} - ${escapeHtml(row.title)}</h4>
-            <span class="text-base">📚</span>
+            <span class="text-base">ðŸ“š</span>
           </div>
           <p class="text-sm leading-relaxed"><span class="font-semibold">Objetivo:</span> ${escapeHtml(row.focusObjective)}</p>
           <p class="text-sm leading-relaxed"><span class="font-semibold">Tarefa pratica:</span> ${escapeHtml(row.practicalTask)}</p>
@@ -460,7 +460,7 @@
     return `
       <div class="premium-card p-7">
         <div class="flex items-center gap-2 mb-5">
-          <span class="text-xl">📚</span>
+          <span class="text-xl">ðŸ“š</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('timeline'))}</h3>
         </div>
         <div class="relative space-y-4"><div class="absolute left-3 top-2 bottom-2 w-px bg-[#D8E0F4]"></div>${rows.join('') || `<p class="text-sm text-on-surface-variant">-</p>`}</div>
@@ -478,7 +478,7 @@
             <span class="material-symbols-outlined">description</span>
           </div>
           <div class="min-w-0">
-            <p class="font-semibold truncate">${escapeHtml(item.targetRole || 'Análise sem título')}</p>
+            <p class="font-semibold truncate">${escapeHtml(item.targetRole || 'AnÃ¡lise sem tÃ­tulo')}</p>
             <p class="text-xs text-on-surface-variant truncate">${escapeHtml(item.analysisId)}</p>
           </div>
         </div>
@@ -853,7 +853,7 @@
             body: JSON.stringify({ message: feedback })
           });
           const data = await response.json();
-          if (!response.ok) throw new Error(data.error || 'Não foi possível enviar feedback.');
+          if (!response.ok) throw new Error(data.error || 'NÃ£o foi possÃ­vel enviar feedback.');
           state.feedbackText = '';
           state.feedbackOpen = false;
           render();
@@ -885,4 +885,5 @@
 
   render();
 })();
+
 
