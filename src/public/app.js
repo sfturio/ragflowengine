@@ -278,7 +278,7 @@
   function ScoreCard(label, score) {
     const val = clamp(score);
     return `
-      <div class="premium-card p-6 space-y-3">
+      <div class="premium-card p-6 space-y-3 bg-[#FCFDFF]">
         <div class="flex items-center justify-between">
           <span class="text-sm font-semibold text-on-surface-variant">${escapeHtml(label)}</span>
           <span class="text-sm font-bold ${scoreColor(val)}">${val}%</span>
@@ -305,10 +305,10 @@
   function SkillInsightPanel(items) {
     const rows = (items || []).map((raw) => toSkillInsightItem(raw));
     return `
-      <div class="premium-card p-7">
+      <div class="premium-card p-7 bg-[#FCFDFF]">
         <div class="flex items-start justify-between gap-4 mb-4">
           <h3 class="text-xl font-bold">${escapeHtml(t('skillsViz'))}</h3>
-          <span class="material-symbols-outlined text-[20px] text-primary" title="Skills">psychology</span>
+          <span class="text-xl" title="Skills">🧠</span>
         </div>
         <p class="text-sm text-on-surface-variant mb-6">${escapeHtml(t('skillsHelper'))}</p>
         <div class="space-y-4">
@@ -317,7 +317,7 @@
               ? rows
                   .map(
                     (item) =>
-                      `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 bg-surface-container-lowest overflow-hidden" style="box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+                      `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:#FEFEFF; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex flex-wrap gap-3 items-center justify-between">
                           <div class="min-w-0 flex-1">
                             <p class="text-sm font-semibold truncate">${escapeHtml(item.skill)}</p>
@@ -349,7 +349,7 @@
   function toNextAction(item) {
     if (typeof item === 'string') {
       return {
-        icon: 'rocket_launch',
+        icon: '🚀',
         priority: 'medium',
         category: 'Career',
         title: item,
@@ -359,7 +359,7 @@
       };
     }
     return {
-      icon: item.icon || 'rocket_launch',
+      icon: item.icon || '🚀',
       priority: item.priority || 'medium',
       category: item.category || 'Career',
       title: item.title || 'Acao recomendada',
@@ -371,10 +371,10 @@
 
   function iconByCategory(category) {
     const normalized = String(category || '').toLowerCase();
-    if (normalized.includes('match')) return 'target';
-    if (normalized.includes('study')) return 'menu_book';
-    if (normalized.includes('skill')) return 'psychology';
-    return 'rocket_launch';
+    if (normalized.includes('match')) return '🎯';
+    if (normalized.includes('study')) return '📚';
+    if (normalized.includes('skill')) return '🧠';
+    return '🚀';
   }
 
   function priorityAccent(priority) {
@@ -410,9 +410,9 @@
   function NextActionsPanel(items) {
     const list = ensurePriorityMix((items || []).map((item) => toNextAction(item)).slice(0, 8));
     return `
-      <div class="premium-card p-7">
+      <div class="premium-card p-7 bg-[#FCFDFF]">
         <div class="flex items-center gap-2 mb-5">
-          <span class="material-symbols-outlined text-[20px] text-primary">rocket_launch</span>
+          <span class="text-xl">🚀</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('strategic'))}</h3>
         </div>
         <div class="space-y-4">
@@ -422,14 +422,14 @@
                   .map((item, idx) => {
                     const priority = item.priority || (idx === 0 ? 'high' : idx === 1 ? 'medium' : 'low');
                     const accent = priorityAccent(priority);
-                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:#FFFFFF; border-left:4px solid ${accent.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+                    return `<details open class="group premium-hover rounded-2xl border border-outline-variant/70 overflow-hidden" style="background:#FDFEFF; border-left:4px solid ${accent.accent}; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
                             <p class="text-xs text-on-surface-variant mt-1">${escapeHtml(item.category)} • ${accent.label}</p>
                           </div>
                           <div class="flex items-center gap-2 shrink-0">
-                            <span class="material-symbols-outlined text-[18px]" style="color:${accent.accent};">${iconByCategory(item.category) || item.icon}</span>
+                            <span class="text-lg">${iconByCategory(item.category) || item.icon}</span>
                             <span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
                           </div>
                         </summary>
@@ -470,7 +470,7 @@
           <div class="absolute left-[7px] top-6 w-3 h-3 rounded-full border-2 border-white" style="background:${nodeColor};"></div>
           <div class="flex items-center justify-between gap-3">
             <h4 class="text-sm font-bold">Semana ${escapeHtml(row.week)} - ${escapeHtml(row.title)}</h4>
-            <span class="material-symbols-outlined text-[18px] text-primary">menu_book</span>
+            <span class="text-base">📚</span>
           </div>
           <p class="text-sm leading-relaxed"><span class="font-semibold">Objetivo:</span> ${escapeHtml(row.focusObjective)}</p>
           <p class="text-sm leading-relaxed"><span class="font-semibold">Tarefa pratica:</span> ${escapeHtml(row.practicalTask)}</p>
@@ -481,9 +481,9 @@
     });
 
     return `
-      <div class="premium-card p-7">
+      <div class="premium-card p-7 bg-[#FCFDFF]">
         <div class="flex items-center gap-2 mb-5">
-          <span class="material-symbols-outlined text-[20px] text-primary">menu_book</span>
+          <span class="text-xl">📚</span>
           <h3 class="text-xl font-bold">${escapeHtml(t('timeline'))}</h3>
         </div>
         <div class="relative space-y-4"><div class="absolute left-3 top-2 bottom-2 w-px bg-[#D8E0F4]"></div>${rows.join('') || `<p class="text-sm text-on-surface-variant">-</p>`}</div>
