@@ -432,7 +432,7 @@
                         <summary class="list-none cursor-pointer px-4 py-4 flex items-start justify-between gap-3">
                           <div class="min-w-0">
                             <p class="text-sm font-semibold break-words">${escapeHtml(item.title)}</p>
-                            <p class="text-xs text-on-surface-variant mt-1">${escapeHtml(item.category)} - ${accent.label}</p>
+                            <p class="text-xs text-on-surface-variant mt-1">${escapeHtml(item.category)}</p>
                           </div>
                           <div class="flex items-center gap-2 shrink-0">
                             <span class="text-lg">${iconByCategory(item.category) || item.icon}</span>
